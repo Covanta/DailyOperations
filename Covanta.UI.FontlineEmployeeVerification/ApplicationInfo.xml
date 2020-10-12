@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<applications>
+  <application name="Active Directory" url="https://passlock.cov.corp"/>
+  <application name="Ceridian Time and Attendance"  url="http://covtime.cov.corp" />
+  <application name="Maximo" url="http://maxprod.cov.corp/maximo" />
+  <application name="PeopleSoft" url="http://psprod.covantaenergy.com/psp/FSPRD/?cmd=login" />
+</applications>
