@@ -14,11 +14,12 @@ namespace Covanta.Entities
      
         #region constructors
 
-        public DailyOpsFacilitiesReportingStats(string facilityType, int facilitiesReportingExpected, int facilitiesReportingActual)
+        public DailyOpsFacilitiesReportingStats(string facilityType, int facilitiesReportingExpected, int facilitiesReportingActual, string facilitiesNotReported)
         {
             FacilityType = facilityType;
             FacilitiesReportingExpected = facilitiesReportingExpected;
-            FacilitiesReportingActual = facilitiesReportingActual;         
+            FacilitiesReportingActual = facilitiesReportingActual;
+            FacilitiesNotReported = facilitiesNotReported;
         }
 
         #endregion
@@ -39,7 +40,12 @@ namespace Covanta.Entities
         /// Number of Facilities who have reported
         /// </summary>
         public int FacilitiesReportingActual { get; set; }
-       
+        
+        // <summary>
+        /// Facilities not reported
+        /// </summary>
+        public string FacilitiesNotReported { get; set; }
+
         #endregion
     }
 }

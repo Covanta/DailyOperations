@@ -29,6 +29,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -151,7 +153,7 @@
       <Name>Covanta.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Covanta.Entities\Covanta.Entities.csproj">
-      <Project>{54DC44D8-EB32-4E1E-AC02-B1D758A95E88}</Project>
+      <Project>{54dc44d8-eb32-4e1e-ac02-b1d758a95e88}</Project>
       <Name>Covanta.Entities</Name>
     </ProjectReference>
   </ItemGroup>
