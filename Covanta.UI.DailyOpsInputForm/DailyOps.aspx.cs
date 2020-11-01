@@ -262,6 +262,19 @@ namespace Covanta.UI.DailyOpsInputForm
                 doWhereControl(clearContents, isClearableField);
                 DisablePreviousDecommissionedFields();
                 HidePalmsBoiler12fields();
+
+                if (data.FaciltyType == "RDF")
+                {
+                    PreShredInventoryRow.Visible = true;
+                    PostShredInventoryRow.Visible = true;
+                    PitInventoryRow.Visible = false;
+                }
+                else
+                {
+                    PreShredInventoryRow.Visible = false;
+                    PostShredInventoryRow.Visible = false;
+                    PitInventoryRow.Visible = true;
+                }
             }
         }
 
@@ -428,6 +441,21 @@ namespace Covanta.UI.DailyOpsInputForm
             // retrieve data from database
             Enums.StatusEnum status = Enums.StatusEnum.OK;
             DailyOpsData data = dailyDataManager.GetDailyOpsDataByDateAndFacility(DateTime.Parse(ReportingDate.Text), Facility.SelectedValue, ref status);
+
+            if(data.FaciltyType == "RDF")
+            {
+                PreShredInventoryRow.Visible = true;
+                PostShredInventoryRow.Visible = true;
+                PitInventoryRow.Visible = false;
+                PreShredInventory.Text = "" + data.PreShredInventory;
+                PostShredInventory.Text = "" + data.PostShredInventory;
+            }
+            else
+            {
+                PreShredInventoryRow.Visible = false;
+                PostShredInventoryRow.Visible = false;
+                PitInventoryRow.Visible = true;
+            }
 
             // prepolulate fields
             TonsDelivered.Text = "" + data.TonsDelivered;
@@ -717,6 +745,9 @@ namespace Covanta.UI.DailyOpsInputForm
 
             Comments.Text = data.Comments;
             CommentsCheckBox.Checked = string.IsNullOrEmpty(Comments.Text.Trim());
+
+            CriticalAssetsDate.Text = (data.CriticalAssetsExpectedBackOnlineDate.Equals(MIN_DATE)) ? "" : data.CriticalAssetsExpectedBackOnlineDate.ToShortDateString();
+            CommentsDate.Text = (data.CriticalEquipmentOOSExpectedBackOnlineDate.Equals(MIN_DATE)) ? "" : data.CriticalEquipmentOOSExpectedBackOnlineDate.ToShortDateString();
         }
 
 
@@ -883,6 +914,8 @@ namespace Covanta.UI.DailyOpsInputForm
             decimal steamSold = getNumericFieldValue(SteamSold);
             decimal netElectric = getNumericFieldValue(NetElectric);
             decimal pitInventory = getNumericFieldValue(PitInventory);
+            decimal preShredInventory = getNumericFieldValue(PreShredInventory);
+            decimal postShredInventory = getNumericFieldValue(PostShredInventory);
 
             string boiler1Status = (Boiler1Status.Visible) ? Boiler1Status.SelectedValue : "";
             decimal boiler1Downtime = (!boiler1Status.Equals("") && !boiler1Status.Equals("Operational")) ? getNumericFieldValue(Boiler1Downtime) : 0;
@@ -1036,6 +1069,11 @@ namespace Covanta.UI.DailyOpsInputForm
 
             string comments = getOptionalFieldValue(Comments, CommentsCheckBox);
 
+
+            DateTime criticalAssetsDate = getDateFieldValue(CriticalAssetsDate);
+
+            DateTime commentsDate = getDateFieldValue(CommentsDate);
+
             //Changed by Eric Chen to make the test work on local machine
             //string userID = Request.ServerVariables["LOGON_USER"].ToString().Substring(4); 
             //string userID = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Substring(4); //USDER ID Added back comment out for testing.
@@ -1131,7 +1169,11 @@ namespace Covanta.UI.DailyOpsInputForm
                     contractor,
                     comments,
                     userID,
-                    pitInventory
+                    pitInventory,
+                    criticalAssetsDate,
+                    commentsDate,
+                    preShredInventory,
+                    postShredInventory
                     );
             dod.ScheduledOutageReasonBoiler1 = boiler1Scheduled;
             dod.ScheduledOutageReasonBoiler2 = boiler2Scheduled;
@@ -1425,7 +1467,7 @@ namespace Covanta.UI.DailyOpsInputForm
             }
             else if (dateField.Equals(Boiler1ExpectedRepairDate) || dateField.Equals(Boiler2ExpectedRepairDate) || dateField.Equals(Boiler3ExpectedRepairDate)
                 || dateField.Equals(Boiler4ExpectedRepairDate) || dateField.Equals(Boiler5ExpectedRepairDate) || dateField.Equals(Boiler6ExpectedRepairDate)
-                || dateField.Equals(Turbine1ExpectedRepairDate) || dateField.Equals(Turbine2ExpectedRepairDate))
+                || dateField.Equals(Turbine1ExpectedRepairDate) || dateField.Equals(Turbine2ExpectedRepairDate) || dateField.Equals(CriticalAssetsDate) || dateField.Equals(CommentsDate))
             {
                 // if (FireSystemCheckBox.Checked)
                 return;

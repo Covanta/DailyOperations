@@ -108,6 +108,88 @@ namespace Covanta.DataAccess
             return dailyOpsData;
         }
 
+        public List<MSWInventoryExceptions> GetMSWInventoryExceptions(DateTime dateDataRepresents, ref Enums.StatusEnum status, ref string statusMsg)
+        {
+            status = Enums.StatusEnum.OK;
+            statusMsg = string.Empty;
+            DataSet DS = new DataSet();
+            DataTable tableList = null;
+
+            List<MSWInventoryExceptions> mswInventoryExceptions = null;
+
+            //populate with the commandTostring for use with exception message
+            string commandString = string.Empty;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(_dbConnection))
+                {
+                    using (SqlCommand command = new SqlCommand())
+                    {
+                        command.Connection = connection;
+                        command.CommandType = CommandType.StoredProcedure;
+                        //command.CommandText = DALSqlStatements.DailyOpsSQL.SQLSP_GetDailyOpsDataByDateAndFacility;
+                        command.CommandText = DALSqlStatements.DailyOpsSQL.SQLSP_MSWInventoryException;
+                        command.Parameters.AddWithValue("@date", dateDataRepresents);
+
+                        commandString = populateExceptionData(command);
+
+                        connection.Open();
+                        // load dataSet
+                        DS.Load(command.ExecuteReader(), LoadOption.OverwriteChanges, new string[] { "tableList" });
+
+                        tableList = DS.Tables["tableList"];
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                status = Enums.StatusEnum.Error;
+                statusMsg = commandString + ex.ToString();
+                return null;
+            }
+
+
+            // load object from DataTable if at least 1 row returned
+            if (tableList.Rows.Count > 0)
+            {
+                mswInventoryExceptions = loadMSWInventoryExceptions(tableList);
+            }
+
+            //set null reference to uneeded objects
+            tableList = null;
+            DS = null;
+
+            //sort        
+            //list = (from u in list
+            //        orderby u.Cer_Unit, u.PS_Unit
+            //        select u).ToList();
+
+            return mswInventoryExceptions;
+        }
+
+        private List<MSWInventoryExceptions> loadMSWInventoryExceptions(DataTable dt)
+        {
+            List<MSWInventoryExceptions> objList = new List<MSWInventoryExceptions>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                BindDataRowToProperty bindObj = new BindDataRowToProperty(row);
+
+                string facilityType = bindObj.ToStringValue("FacilityType");
+                string facility = bindObj.ToStringValue("Facility");
+                string limit = bindObj.ToStringValue("Limit");
+                decimal ActualInventory = bindObj.ToDecimal("ActualInventory");
+                int InventoryMinLimit = bindObj.ToInteger("InventoryMinLimit");
+                int InventoryMaxLimit = bindObj.ToInteger("InventoryMaxLimit");
+
+                MSWInventoryExceptions obj = new MSWInventoryExceptions(facilityType, facility, limit, ActualInventory, InventoryMinLimit, InventoryMaxLimit);
+
+                objList.Add(obj);
+            }
+            return objList;
+        }
+
         public CompleteDowntime CumulativeDowntime(DateTime dateDataRepresents, string faciltyID, Enums.DowntimeBoilerEnum downtimeBoiler,  ref Enums.StatusEnum status, ref string statusMsg)
         {
             status = Enums.StatusEnum.OK;
@@ -631,6 +713,8 @@ namespace Covanta.DataAccess
                         command.Parameters.AddWithValue("@SteamSold", data.SteamSold);
                         command.Parameters.AddWithValue("@NetElectric", data.NetElectric);
                         command.Parameters.AddWithValue("@PitInventory", data.PitInventory);
+                        command.Parameters.AddWithValue("@PreShredInventory", data.PreShredInventory);
+                        command.Parameters.AddWithValue("@PostShredInventory", data.PostShredInventory);
 
                         command.Parameters.AddWithValue("@DownTimeBoiler1", data.DownTimeBoiler1);
                         command.Parameters.AddWithValue("@OutageTypeBoiler1", data.OutageTypeBoiler1);
@@ -745,6 +829,8 @@ namespace Covanta.DataAccess
                         command.Parameters.AddWithValue("@UserRowCreated", data.UserRowCreated);
                         command.Parameters.AddWithValue("@DateLastModified", DateTime.Now);
                         command.Parameters.AddWithValue("@UserLastModified", data.UserRowCreated);
+                        command.Parameters.AddWithValue("@CriticalAssetsExpectedBackOnlineDate", data.CriticalAssetsExpectedBackOnlineDate);
+                        command.Parameters.AddWithValue("@CriticalEquipmentOOSExpectedBackOnlineDate", data.CriticalEquipmentOOSExpectedBackOnlineDate);
 
                         commandString = populateExceptionData(command);
 
@@ -1067,6 +1153,8 @@ namespace Covanta.DataAccess
             string userRowCreated = bindObj.ToStringValue("UserRowCreated");
 
             decimal pitInventory = bindObj.ToDecimal("PitInventory");
+            decimal preShredInventory = bindObj.ToDecimal("PreShredInventory");
+            decimal postShredInventory = bindObj.ToDecimal("PostShredInventory");
 
             DateTime Boiler1ExpectedRepairDate = bindObj.ToDate("Boiler1ExpectedBackOnlineDate");
             DateTime Boiler2ExpectedRepairDate = bindObj.ToDate("Boiler2ExpectedBackOnlineDate");
@@ -1076,7 +1164,9 @@ namespace Covanta.DataAccess
             DateTime Boiler6ExpectedRepairDate = bindObj.ToDate("Boiler6ExpectedBackOnlineDate");
             DateTime TurbGen1ExpectedRepairDate = bindObj.ToDate("TurbGen1ExpectedBackOnlineDate");
             DateTime TurbGen2ExpectedRepairDate = bindObj.ToDate("TurbGen2ExpectedBackOnlineDate");
-            
+            DateTime CriticalAssetsExpectedBackOnlineDate = bindObj.ToDate("CriticalAssetsExpectedBackOnlineDate");
+            DateTime CriticalEquipmentOOSExpectedBackOnlineDate = bindObj.ToDate("CriticalEquipmentOOSExpectedBackOnlineDate");
+
             DailyOpsData obj = new DailyOpsData(facilityID, reportingDate, tonsDelivered, tonsProcessed, steamProduced, steamSold, netElectric,
                 outageTypeBoiler1, downTimeBoiler1, explanationBoiler1,Boiler1ExpectedRepairDate,
                 outageTypeBoiler2, downTimeBoiler2, explanationBoiler2,Boiler2ExpectedRepairDate,
@@ -1097,7 +1187,7 @@ namespace Covanta.DataAccess
                 isEnvironmentalEvents, environmentalEventsType, environmentalEventsExplanation,
                 isCEMSEvents, cemsEventsType, cemsEventsExplanation,
                 healthSafetyFirstAid, healthSafetyOSHAReportable, healthSafetyNearMiss, healthSafetyContractor,
-                comments, userRowCreated, pitInventory);
+                comments, userRowCreated, pitInventory, CriticalAssetsExpectedBackOnlineDate, CriticalEquipmentOOSExpectedBackOnlineDate, preShredInventory, postShredInventory);
 
             // these fields are not in the constructor so we set them here.           
             obj.DateLastModified = bindObj.ToDate("DateLastModified");
@@ -1406,6 +1496,10 @@ namespace Covanta.DataAccess
                 string userRowCreated = bindObj.ToStringValue("UserRowCreated");
 
                 decimal pitInventory = bindObj.ToDecimal("PitInventory");
+                decimal preShredInventory = bindObj.ToDecimal("PreShredInventory");
+                decimal postShredInventory = bindObj.ToDecimal("PostShredInventory");
+                DateTime CriticalAssetsExpectedBackOnlineDate = bindObj.ToDate("CriticalAssetsExpectedBackOnlineDate");
+                DateTime CriticalEquipmentOOSExpectedBackOnlineDate = bindObj.ToDate("CriticalEquipmentOOSExpectedBackOnlineDate");
 
 
                 DailyOpsData obj = new DailyOpsData(facilityID, reportingDate, tonsDelivered, tonsProcessed, steamProduced, steamSold, netElectric,
@@ -1428,7 +1522,7 @@ namespace Covanta.DataAccess
                     isEnvironmentalEvents, environmentalEventsType, environmentalEventsExplanation,
                     isCEMSEvents, cemsEventsType, cemsEventsExplanation,
                     healthSafetyFirstAid, healthSafetyOSHAReportable, healthSafetyNearMiss, healthSafetyContractor,
-                    comments, userRowCreated, pitInventory);
+                    comments, userRowCreated, pitInventory, CriticalAssetsExpectedBackOnlineDate, CriticalEquipmentOOSExpectedBackOnlineDate, preShredInventory, postShredInventory);
 
                 // these fields are not in the constructor so we set them here.           
                 obj.DateLastModified = bindObj.ToDate("DateLastModified");

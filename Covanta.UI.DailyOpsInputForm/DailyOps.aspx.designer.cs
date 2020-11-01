@@ -328,6 +328,15 @@ namespace Covanta.UI.DailyOpsInputForm {
         protected global::System.Web.UI.WebControls.Label NetElectricMessage;
         
         /// <summary>
+        /// PitInventoryRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow PitInventoryRow;
+        
+        /// <summary>
         /// PitInventoryLabel control.
         /// </summary>
         /// <remarks>
@@ -353,6 +362,78 @@ namespace Covanta.UI.DailyOpsInputForm {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label PitInventoryMessage;
+        
+        /// <summary>
+        /// PreShredInventoryRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow PreShredInventoryRow;
+        
+        /// <summary>
+        /// PreShredInventoryLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label PreShredInventoryLabel;
+        
+        /// <summary>
+        /// PreShredInventory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox PreShredInventory;
+        
+        /// <summary>
+        /// PreShredInventoryMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label PreShredInventoryMessage;
+        
+        /// <summary>
+        /// PostShredInventoryRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow PostShredInventoryRow;
+        
+        /// <summary>
+        /// PostShredInventoryLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label PostShredInventoryLabel;
+        
+        /// <summary>
+        /// PostShredInventory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox PostShredInventory;
+        
+        /// <summary>
+        /// PostShredInventoryMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label PostShredInventoryMessage;
         
         /// <summary>
         /// Boiler1Input control.
@@ -2002,6 +2083,33 @@ namespace Covanta.UI.DailyOpsInputForm {
         protected global::System.Web.UI.WebControls.TextBox CriticalAssets;
         
         /// <summary>
+        /// criticalAssetsDateLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label criticalAssetsDateLabel;
+        
+        /// <summary>
+        /// CriticalAssetsDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox CriticalAssetsDate;
+        
+        /// <summary>
+        /// CriticalAssetsDateCalendar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender CriticalAssetsDateCalendar;
+        
+        /// <summary>
         /// EnvironmentalEventsLabel control.
         /// </summary>
         /// <remarks>
@@ -2243,6 +2351,33 @@ namespace Covanta.UI.DailyOpsInputForm {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Comments;
+        
+        /// <summary>
+        /// commentsDateLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label commentsDateLabel;
+        
+        /// <summary>
+        /// CommentsDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox CommentsDate;
+        
+        /// <summary>
+        /// CommentsDateCalendar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender CommentsDateCalendar;
         
         /// <summary>
         /// FacilityManagerName control.

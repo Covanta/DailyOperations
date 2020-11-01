@@ -285,14 +285,15 @@
                 <asp:GridView ID="CriticalAssetsData" runat="server" AutoGenerateColumns="false"
                     ShowHeader="false">
                     <Columns>
-                        <asp:BoundField DataField="FaciltyDescription" ItemStyle-Width="20%" ItemStyle-CssClass="FacilityRow" />
-                        <asp:BoundField DataField="CriticalAssetsInAlarm" ItemStyle-Width="80%" ItemStyle-CssClass="FacilityRow" />
+                        <asp:BoundField DataField="FaciltyDescription" ItemStyle-Width="11%" ItemStyle-CssClass="FacilityRow" />
+                        <asp:BoundField DataField="CriticalAssetsInAlarm" ItemStyle-Width="29%" ItemStyle-CssClass="FacilityRow" />
+                        <asp:BoundField DataField="CriticalAssetsExpectedBackOnlineDate"  DataFormatString="{0:M/d/yyyy}"  ItemStyle-Width="20%" ItemStyle-CssClass="FacilityRow" />
                     </Columns>
                 </asp:GridView>
             </ItemTemplate>
         </asp:TemplateField>
-        <asp:TemplateField HeaderText="Critical Assets in Alarm" HeaderStyle-Width="72%"
-            ItemStyle-CssClass="TypeRow"></asp:TemplateField>
+        <asp:TemplateField HeaderText="Critical Assets in Alarm" HeaderStyle-Width="42%" ItemStyle-CssClass="TypeRow"></asp:TemplateField>     
+        <asp:TemplateField HeaderText="Estimated Return to Service Date" HeaderStyle-Width="30%" ItemStyle-CssClass="TypeRow"></asp:TemplateField>
     </Columns>
 </asp:GridView>
 
@@ -307,13 +308,15 @@
             <ItemTemplate>
                 <asp:GridView ID="CommentsData" runat="server" AutoGenerateColumns="False" ShowHeader="false">
                     <Columns>
-                        <asp:BoundField DataField="FaciltyDescription" ItemStyle-Width="20%" ItemStyle-CssClass="FacilityRow" />
-                        <asp:BoundField DataField="Comments" ItemStyle-Width="80%" ItemStyle-CssClass="FacilityRow" />
+                        <asp:BoundField DataField="FaciltyDescription" ItemStyle-Width="11%" ItemStyle-CssClass="FacilityRow" />
+                        <asp:BoundField DataField="Comments" ItemStyle-Width="29%" ItemStyle-CssClass="FacilityRow" />
+                        <asp:BoundField DataField="criticalEquipmentOOSExpectedBackOnlineDate" DataFormatString="{0:M/d/yyyy}" ItemStyle-Width="20%" ItemStyle-CssClass="FacilityRow"/>
                     </Columns>
                 </asp:GridView>
             </ItemTemplate>
         </asp:TemplateField>
-        <asp:TemplateField HeaderText="Comments" HeaderStyle-Width="72%" ItemStyle-CssClass="TypeRow"></asp:TemplateField>
+        <asp:TemplateField HeaderText="Comments" HeaderStyle-Width="42%" ItemStyle-CssClass="TypeRow"></asp:TemplateField>        
+        <asp:TemplateField HeaderText="Estimated Return to Service Date" HeaderStyle-Width="30%" ItemStyle-CssClass="TypeRow"></asp:TemplateField>
     </Columns>
 </asp:GridView>
 
@@ -341,6 +344,11 @@
         <asp:TemplateField HeaderText="Estimated Return to Service Date" HeaderStyle-Width="18%" ItemStyle-CssClass="TypeRow"></asp:TemplateField>
     </Columns>
 </asp:GridView>
+
+<h2 class="ExceptionsReportHeading">MSW Inventory Exceptions</h2>
+<asp:GridView ID="gridMSWInventoryExceptions" runat="server" OnRowDataBound="gridMSWInventoryExceptions_RowDataBound">
+
+</asp:GridView>  
 <br />
 <h2 class="ExceptionsReportHeading">Need Access?
 </h2>

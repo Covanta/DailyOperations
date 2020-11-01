@@ -38,11 +38,11 @@ namespace Covanta.DataAccess
         {
             public const string SQLSP_C4RWasteModelApp_GetData = "C4RWasteModelApp_GetData";
             public const string SQLSP_C4RWasteModelApp_DeleteAllRows = "C4RWasteModelApp_DeleteAllRows";
-            public const string SQLSP_C4RWasteModelApp_InsertAllRows = "C4RWasteModelApp_InsertAllRows";    
+            public const string SQLSP_C4RWasteModelApp_InsertAllRows = "C4RWasteModelApp_InsertAllRows";
         }
 
         public static class C4RForecastRecommendation
-        {           
+        {
             public const string SQLSP_C4RForecastRecommendationApp_DeleteAllRows = "C4RForecastRecommendationApp_DeleteAllRows";
             public const string SQLSP_C4RForecastRecommendationApp_InsertAllRows = "C4RForecastRecommendationApp_InsertAllRows";
         }
@@ -63,7 +63,7 @@ namespace Covanta.DataAccess
             public static string SQLSP_UpdateDailyOpsData_V2 = "[dailyOps].[UpdateDailyOpsData_V2]";
             public const string SQLSP_GET_GetDailyOpsReportedDatesListByFacilityAndMonth_LIST = "dailyOps.GetDailyOpsReportedDatesListByFacilityAndMonth";
             public const string SQLSP_GET_GetDailyOpsExceptionReportEmail_LIST = "[dbo].[DailyOps_ExceptionReportGetEmailRecipients]";
-
+            public const string SQLSP_MSWInventoryException = "dailyOps.MSWInventoryException";
         }
 
         public static class CumulativeDowntimeSQL
@@ -95,17 +95,17 @@ namespace Covanta.DataAccess
             public const string SQLSP_GET_AutomatedJobsEmailList_LIST = "Get_AutomatedJobsEmailList_Data";
             public const string SQLSP_GET_AutomatedJobDetails_By_ApplicationName = "Get_AutomatedJobDetails_By_ApplicationName";
             public const string SQLSP_Update_AutomatedJobDetails_By_ApplicationName = "Update_AutomatedJobDetails_By_ApplicationName";
-            public const string SQLSP_GET_AutomatedJobDetailsList = "Get_AutomatedJobDetailsList";  
+            public const string SQLSP_GET_AutomatedJobDetailsList = "Get_AutomatedJobDetailsList";
         }
         public static class EmployeeDataSQL
         {
             public const string SQLSP_Get_ActiveDirectoryInfo_By_LastName_LIST = "Get_ActiveDirectoryInfo_By_LastName";
-            public const string SQLSP_Get_EmployeeInfo_By_LastName_LIST = "Get_EmployeeInfo_By_LastName";  
+            public const string SQLSP_Get_EmployeeInfo_By_LastName_LIST = "Get_EmployeeInfo_By_LastName";
         }
 
         public static class OPRevenue
         {
-            public const string SQLSP_NetRevCalc_Get_LongviewOPRevenueReduced_LIST = "NetRevCalc_Get_LongviewOPRevenueReducedList";            
+            public const string SQLSP_NetRevCalc_Get_LongviewOPRevenueReduced_LIST = "NetRevCalc_Get_LongviewOPRevenueReducedList";
         }
 
         public static class PS_JRNL
@@ -138,7 +138,7 @@ namespace Covanta.DataAccess
         public static class ServiceNowETL
         {
             public const string SQLSP_ServiceNow_00100_Delete_VIPData = "ServiceNow_00100_Delete_VIPData";
-            public const string SQLSP_ServiceNow_00200_Insert_VIPData = "ServiceNow_00200_Insert_VIPData";           
+            public const string SQLSP_ServiceNow_00200_Insert_VIPData = "ServiceNow_00200_Insert_VIPData";
         }
         public static class WorkDayOperatingUnitsETL
         {

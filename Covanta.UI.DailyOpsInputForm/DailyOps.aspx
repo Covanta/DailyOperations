@@ -303,6 +303,30 @@
                     }
                 }
 
+                if (field.id === "CriticalAssets") {
+                    var dateField = document.getElementById("criticalAssetsDateRow");
+                    if (checkbox.checked) {
+                        field.style.display = "none";
+                        dateField.style.display = "none";
+                    }
+                    else {
+                        field.style.display = "block";
+                        dateField.style.display = "block";
+                    }
+                } 
+
+                if (field.id === "Comments") {
+                    var dateField = document.getElementById("commentsDateRow");
+                    if (checkbox.checked) {
+                        field.style.display = "none";
+                        dateField.style.display = "none";
+                    }
+                    else {
+                        field.style.display = "block";
+                        dateField.style.display = "block";
+                    }
+                }
+
                 else {
                     if (checkbox.checked)
                         field.style.display = "none";
@@ -460,7 +484,7 @@
                                 <asp:Label ID="NetElectricMessage" runat="server" EnableViewState="False"></asp:Label>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr id="PitInventoryRow" runat="server">
                                 <td class="left-column">
                                     <asp:Label ID="PitInventoryLabel" runat="server" EnableViewState="False">Fuel Inventory - (MSW tons, Wood tons)</asp:Label>
                                 </td>
@@ -468,6 +492,26 @@
                                     <asp:TextBox ID="PitInventory" runat="server" CssClass="NumericField" AutoCompleteType="Disabled"></asp:TextBox>
                                     &nbsp;
                                 <asp:Label ID="PitInventoryMessage" runat="server" EnableViewState="False"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr id="PreShredInventoryRow" runat="server" visible="false">
+                                <td class="left-column">
+                                    <asp:Label ID="PreShredInventoryLabel" runat="server" EnableViewState="False">Pre-Shred Inventory</asp:Label>
+                                </td>
+                                <td class="right-column">
+                                    <asp:TextBox ID="PreShredInventory" runat="server" CssClass="NumericField" AutoCompleteType="Disabled"></asp:TextBox>
+                                    &nbsp;
+                                <asp:Label ID="PreShredInventoryMessage" runat="server" EnableViewState="False"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr id="PostShredInventoryRow" runat="server" visible="false">
+                                <td class="left-column">
+                                    <asp:Label ID="PostShredInventoryLabel" runat="server" EnableViewState="False">Post-Shred Inventory</asp:Label>
+                                </td>
+                                <td class="right-column">
+                                    <asp:TextBox ID="PostShredInventory" runat="server" CssClass="NumericField" AutoCompleteType="Disabled"></asp:TextBox>
+                                    &nbsp;
+                                <asp:Label ID="PostShredInventoryMessage" runat="server" EnableViewState="False"></asp:Label>
                                 </td>
                             </tr>
                             <span id="Boiler1Input" runat="server">
@@ -1391,6 +1435,16 @@
                                             AutoCompleteType="Disabled"></asp:TextBox>
                                     </td>
                                 </tr>
+                                <tr id="criticalAssetsDateRow">
+                                    <td class="left-column">
+                                        <asp:Label ID="criticalAssetsDateLabel" runat="server" EnableViewState="False">Expected return to service:</asp:Label>
+                                    </td>
+                                    <td class="right-column">
+                                        <asp:TextBox ID="CriticalAssetsDate" runat="server" CssClass="DateField"></asp:TextBox>
+                                        <asp:CalendarExtender ID="CriticalAssetsDateCalendar" runat="server" TargetControlID="criticalAssetsDate">
+                                        </asp:CalendarExtender>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td class="table-subheading" colspan="2">Environmental Events
                                     </td>
@@ -1526,6 +1580,16 @@
                                         <br />
                                         <asp:TextBox ID="Comments" runat="server" CssClass="OptionalField" TextMode="MultiLine"
                                             AutoCompleteType="Disabled"></asp:TextBox>
+                                    </td>
+                                </tr>                                
+                                <tr id="commentsDateRow">
+                                    <td class="left-column">
+                                        <asp:Label ID="commentsDateLabel" runat="server" EnableViewState="False">Expected return to service:</asp:Label>
+                                    </td>
+                                    <td class="right-column">
+                                        <asp:TextBox ID="CommentsDate" runat="server" CssClass="DateField"></asp:TextBox>
+                                        <asp:CalendarExtender ID="CommentsDateCalendar" runat="server" TargetControlID="commentsDate">
+                                        </asp:CalendarExtender>
                                     </td>
                                 </tr>
                                 <tr>

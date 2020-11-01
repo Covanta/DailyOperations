@@ -58,6 +58,7 @@ namespace Covanta.UI.DailyOpsInputForm
             Covanta.Common.Enums.Enums.StatusEnum status = Covanta.Common.Enums.Enums.StatusEnum.NotSet;
             List<DailyOpsFacilitiesReportingStats> facilityTypes = dailyDataManager.GetDailyOpsFacilitiesReportingStatsByParameters(ReportDate, FacilityID, Region, ref status);
             List<DailyOpsData> facilityData = dailyDataManager.GetDailyOpsDataByParameters(ReportDate, FacilityID, Region, ref status);
+            List<MSWInventoryExceptions> mswInventoryExceptions = dailyDataManager.GetMSWInventoryExceptions(ReportDate, ref status);
 
             SummaryData.DataSource = facilityTypes;
             SummaryData.DataBind();
@@ -73,6 +74,7 @@ namespace Covanta.UI.DailyOpsInputForm
             EnvironmentalFacilityTypeData.DataSource = facilityTypes;
             HealthSafetyFacilityTypeData.DataSource = facilityTypes;
             CommentsFacilityTypeData.DataSource = facilityTypes;
+            gridMSWInventoryExceptions.DataSource = mswInventoryExceptions;
 
             BoilerOutageFacilityTypeData.DataBind();
             TurbineOutageFacilityTypeData.DataBind();
@@ -82,6 +84,7 @@ namespace Covanta.UI.DailyOpsInputForm
             EnvironmentalFacilityTypeData.DataBind();
             HealthSafetyFacilityTypeData.DataBind();
             CommentsFacilityTypeData.DataBind();
+            gridMSWInventoryExceptions.DataBind();
 
             UpdateDowntimeHeaders();
         }
@@ -143,6 +146,24 @@ namespace Covanta.UI.DailyOpsInputForm
         #endregion
 
         #region protected methods
+        protected void gridMSWInventoryExceptions_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[0].Text = "Facility Type";
+                e.Row.Cells[3].Text = "Actual Inventory";
+                e.Row.Cells[4].Text = "Inventory Min Limit";
+                e.Row.Cells[5].Text = "Inventory Max Limit";
+            }
+            else if(e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex > 0)
+            {
+                GridViewRow prevrow = gridMSWInventoryExceptions.Rows[e.Row.RowIndex - 1];
+                if(e.Row.Cells[0].Text == prevrow.Cells[0].Text)
+                {
+                    e.Row.Cells[0].ForeColor = System.Drawing.Color.White;
+                }
+            }
+        }
 
         /// <summary>
         /// Binds actual facility data to each facility type row for the Boiler Outage table.
@@ -483,7 +504,7 @@ namespace Covanta.UI.DailyOpsInputForm
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                e.Row.Cells[1].ColumnSpan = 2;
+                e.Row.Cells[1].ColumnSpan = 3;
                 e.Row.Cells.RemoveAt(2);
 
                 List<DailyOpsFacilitiesReportingStats> types = (List<DailyOpsFacilitiesReportingStats>)((GridView)sender).DataSource;

@@ -128,7 +128,7 @@ namespace Covanta.BusinessLogic
             if (status != Enums.StatusEnum.OK)
             {
                 EmailHelper.SendEmail(statusMsg);
-            }            
+            }
             return dod;
         }
 
@@ -360,7 +360,7 @@ namespace Covanta.BusinessLogic
                     dailyOpsData.EnhancedFerrousSystemHoursUnavailableReason,
                     dailyOpsData.EnhancedFerrousSystemExpectedBackOnlineDate,
                     dailyOpsData.WasAshReprocessedThroughEnhancedFerrousSystem);
-                
+
                 var completeDowntime = GetCumulativeDowntime(dateDataRepresents, faciltyID, Enums.DowntimeBoilerEnum.EnhancedFerrousSystemHoursUnavailable, ref status);
                 enhancedFerrousStatusObject.CumulativeDowntime = completeDowntime.CumulativeDowntime;
                 enhancedFerrousStatusObject.WeekToDate = completeDowntime.WeekToDate;
@@ -573,7 +573,7 @@ namespace Covanta.BusinessLogic
                 dailyOpsBoilerStatus.MonthToDate = completeDowntime.MonthToDate;
                 listDailyOpsBoilerStatus.Add(dailyOpsBoilerStatus);
             }
-            
+
             // Added 05/03/2013 - Brian L
             // If we have a Scheduled Boiler Outage, show the value from the Scheldule Reason Dropdown in the Exception Report.
             // It has to go in the Unschedlued Reason part of the page to keep the page look consistant.
@@ -588,29 +588,29 @@ namespace Covanta.BusinessLogic
                     }
                     else
                         if (stat.BoilerNumber == 2)
-                        {
-                            stat.UnscheduledOutageExplanation = dailyOpsData.ScheduledOutageReasonBoiler2;
-                        }
-                        else
+                    {
+                        stat.UnscheduledOutageExplanation = dailyOpsData.ScheduledOutageReasonBoiler2;
+                    }
+                    else
                             if (stat.BoilerNumber == 3)
-                            {
-                                stat.UnscheduledOutageExplanation = dailyOpsData.ScheduledOutageReasonBoiler3;
-                            }
-                            else
+                    {
+                        stat.UnscheduledOutageExplanation = dailyOpsData.ScheduledOutageReasonBoiler3;
+                    }
+                    else
                                 if (stat.BoilerNumber == 4)
-                                {
-                                    stat.UnscheduledOutageExplanation = dailyOpsData.ScheduledOutageReasonBoiler4;
-                                }
-                                else
+                    {
+                        stat.UnscheduledOutageExplanation = dailyOpsData.ScheduledOutageReasonBoiler4;
+                    }
+                    else
                                     if (stat.BoilerNumber == 5)
-                                    {
-                                        stat.UnscheduledOutageExplanation = dailyOpsData.ScheduledOutageReasonBoiler5;
-                                    }
-                                    else
+                    {
+                        stat.UnscheduledOutageExplanation = dailyOpsData.ScheduledOutageReasonBoiler5;
+                    }
+                    else
                                         if (stat.BoilerNumber == 6)
-                                        {
-                                            stat.UnscheduledOutageExplanation = dailyOpsData.ScheduledOutageReasonBoiler6;
-                                        }
+                    {
+                        stat.UnscheduledOutageExplanation = dailyOpsData.ScheduledOutageReasonBoiler6;
+                    }
                 }
             }
 
@@ -667,9 +667,9 @@ namespace Covanta.BusinessLogic
                     }
                     else
                         if (stat.BoilerNumber == 2)
-                        {
-                            stat.UnscheduledOutageExplanation = dailyOpsData.ScheduledOutageReasonTurbGen2;
-                        }
+                    {
+                        stat.UnscheduledOutageExplanation = dailyOpsData.ScheduledOutageReasonTurbGen2;
+                    }
                 }
             }
             return listDailyOpsTurbGenStatus;
@@ -715,6 +715,14 @@ namespace Covanta.BusinessLogic
             {
                 EmailHelper.SendEmail(statusMsg);
             }
+        }
+
+        public List<MSWInventoryExceptions> GetMSWInventoryExceptions(DateTime dateDataRepresents, ref Enums.StatusEnum status)
+        {
+            string msg = "";
+            DALDailyOps dalDailyOps = new DALDailyOps(_dbConnection);
+            List<MSWInventoryExceptions> mswInventoryExceptions = dalDailyOps.GetMSWInventoryExceptions(dateDataRepresents, ref status, ref msg);
+            return mswInventoryExceptions;
         }
 
         /// <summary>
@@ -815,8 +823,8 @@ namespace Covanta.BusinessLogic
 
             // if still null, then we have a problem in the database, so let the user enter the data, an email should have been sent to support team in other method
             if (dateList == null) { return DateTime.MinValue; }
-                      
-            DateTime currentTestDate = new DateTime(reportingDate.Year, reportingDate.Month, 1);            
+
+            DateTime currentTestDate = new DateTime(reportingDate.Year, reportingDate.Month, 1);
 
             //loop thru the list to see which date if missing
             while (currentTestDate < reportingDate)
@@ -903,7 +911,7 @@ namespace Covanta.BusinessLogic
             string statusMsg = string.Empty;
             List<DailyOpsDataWithID> dailyOpsDataWithIDList = new List<DailyOpsDataWithID>();
             dailyOpsDataWithIDList = dal.LoadActiveDailyOpsDataWithIDByFacility(faciltyID, ref status, ref statusMsg);
-                //= dal.LoadDailyOpsDataWithIDByMonthAndFacility(dateDataRepresents, faciltyID, ref status, ref statusMsg);
+            //= dal.LoadDailyOpsDataWithIDByMonthAndFacility(dateDataRepresents, faciltyID, ref status, ref statusMsg);
             //DailyOpsData dod = dal.LoadDailyOpsDataByMonthAndFacility(dateDataRepresents, faciltyID, ref status, ref statusMsg);
             //if (status != Enums.StatusEnum.OK)
             //{
@@ -941,7 +949,7 @@ namespace Covanta.BusinessLogic
                 allExpected = allExpected + item.FacilitiesReportingExpected;
             }
 
-            DailyOpsFacilitiesReportingStats x = new DailyOpsFacilitiesReportingStats("All", allExpected, allActual);
+            DailyOpsFacilitiesReportingStats x = new DailyOpsFacilitiesReportingStats("All", allExpected, allActual, string.Empty);
             list.Add(x);
         }
 
@@ -955,7 +963,7 @@ namespace Covanta.BusinessLogic
 
             for (int i = 0; i < distinctFacilityTypes.Count; i++)
             {
-                DailyOpsFacilitiesReportingStats dailyreporingStats = new DailyOpsFacilitiesReportingStats(distinctFacilityTypes[i], 0, 0);
+                DailyOpsFacilitiesReportingStats dailyreporingStats = new DailyOpsFacilitiesReportingStats(distinctFacilityTypes[i], 0, 0, string.Empty);
                 foreach (DailyOpsBusinessUnit BU in BUList)
                 {
                     if (BU.FacilityType == distinctFacilityTypes[i])
@@ -1013,6 +1021,18 @@ namespace Covanta.BusinessLogic
                     {
                         list[i].FacilitiesReportingActual++;
                     }
+                    else if ((list[i].FacilityType == x.FaciltyType) && (x.UserRowCreated == null))
+                    {
+                        if (list[i].FacilitiesNotReported != null && list[i].FacilitiesNotReported.Length > 1)
+                        {
+                            list[i].FacilitiesNotReported += ", ";
+                        }
+                        list[i].FacilitiesNotReported += x.FaciltyDescription;
+                    }
+                }
+                if (list[i].FacilitiesNotReported.Length == 0)
+                {
+                    list[i].FacilitiesNotReported = "-";
                 }
             }
 
