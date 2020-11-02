@@ -53,7 +53,7 @@
 </h2>
 <asp:GridView ID="SummaryData" class="SummaryData" runat="server" AutoGenerateColumns="false">
     <Columns>
-        <asp:BoundField HeaderText="Facility Type" DataField="FacilityType" HeaderStyle-Width="25%" />
+        <asp:BoundField HeaderText="Facility Type" DataField="FacilityType" />
         <asp:BoundField HeaderText="Total" DataField="FacilitiesReportingExpected" />
         <asp:BoundField HeaderText="Reporting" DataField="FacilitiesReportingActual" />
         <asp:TemplateField HeaderText="Facilities Not Reported">
@@ -134,8 +134,10 @@
 
 <h2 class="ExceptionsReportHeading">Boiler Outage Log
 </h2>
-<asp:GridView ID="BoilerOutageFacilityTypeData" runat="server" AutoGenerateColumns="false"
-    OnRowCreated="BoilerOutageFacilityTypeData_RowCreated">
+
+<asp:GridView ID="BoilerOutageData1" runat="server" OnRowDataBound="BoilerOutageData1_RowDataBound"></asp:GridView>
+<%--<asp:GridView ID="BoilerOutageFacilityTypeData" runat="server" AutoGenerateColumns="false"
+    OnRowCreated="BoilerOutageFacilityTypeData_RowCreated" Visible="false">
     <Columns>
         <asp:BoundField HeaderText="Facility Type" DataField="FacilityType" HeaderStyle-Width="10%"
             ItemStyle-CssClass="TypeRow" />
@@ -153,7 +155,6 @@
                                         <asp:BoundField DataField="Downtime" ItemStyle-Width="15%" ItemStyle-CssClass="SubFacilityRow" />
                                         <asp:BoundField DataField="UnscheduledOutageExplanation" ItemStyle-Width="30%" ItemStyle-CssClass="SubFacilityRow" />
                                         <asp:BoundField DataField="CumulativeDowntime" ItemStyle-Width="15.6%" ItemStyle-CssClass="SubFacilityRow" />
-                                        <%--<asp:BoundField DataField="WeekToDate" ItemStyle-Width="13%" ItemStyle-CssClass="SubFacilityRow" />--%>
                                         <asp:BoundField DataField="MonthToDate" ItemStyle-Width="13%" ItemStyle-CssClass="SubFacilityRow" />
                                         <asp:BoundField DataField="ExpectedRepairDate" DataFormatString="{0:M/d/yyyy}" ItemStyle-Width="16%" ItemStyle-CssClass="SubFacilityRow" />
                                     </Columns>
@@ -169,12 +170,10 @@
         <asp:TemplateField HeaderText="Current Event Downtime" HeaderStyle-Width="11.4%" ItemStyle-CssClass="TypeRow"></asp:TemplateField>
         <asp:TemplateField HeaderText="Current Event Explanation" HeaderStyle-Width="22.9%" ItemStyle-CssClass="TypeRow"></asp:TemplateField>
         <asp:TemplateField HeaderText="Current Event Cumulative Downtime" HeaderStyle-Width="12.4%" ItemStyle-CssClass="TypeRow"></asp:TemplateField>
-        <%--<asp:TemplateField HeaderText="Cumulative Downtime for Week Ending MM/DD" HeaderStyle-Width="10.4%" ItemStyle-CssClass="TypeRow">
-		</asp:TemplateField>--%>
         <asp:TemplateField HeaderText="Cumulative Downtime for Month of Month Year" HeaderStyle-Width="10.4%" ItemStyle-CssClass="TypeRow"></asp:TemplateField>
         <asp:TemplateField HeaderText="Estimated Return to Service Date" HeaderStyle-Width="12.4%" ItemStyle-CssClass="TypeRow"></asp:TemplateField>
     </Columns>
-</asp:GridView>
+</asp:GridView>--%>
 
 <h2 class="ExceptionsReportHeading">Turbine/Generator Outage Log
 </h2>
@@ -287,12 +286,12 @@
                     <Columns>
                         <asp:BoundField DataField="FaciltyDescription" ItemStyle-Width="11%" ItemStyle-CssClass="FacilityRow" />
                         <asp:BoundField DataField="CriticalAssetsInAlarm" ItemStyle-Width="29%" ItemStyle-CssClass="FacilityRow" />
-                        <asp:BoundField DataField="CriticalAssetsExpectedBackOnlineDate"  DataFormatString="{0:M/d/yyyy}"  ItemStyle-Width="20%" ItemStyle-CssClass="FacilityRow" />
+                        <asp:BoundField DataField="CriticalAssetsExpectedBackOnlineDate" DataFormatString="{0:M/d/yyyy}" ItemStyle-Width="20%" ItemStyle-CssClass="FacilityRow" />
                     </Columns>
                 </asp:GridView>
             </ItemTemplate>
         </asp:TemplateField>
-        <asp:TemplateField HeaderText="Critical Assets in Alarm" HeaderStyle-Width="42%" ItemStyle-CssClass="TypeRow"></asp:TemplateField>     
+        <asp:TemplateField HeaderText="Critical Assets in Alarm" HeaderStyle-Width="42%" ItemStyle-CssClass="TypeRow"></asp:TemplateField>
         <asp:TemplateField HeaderText="Estimated Return to Service Date" HeaderStyle-Width="30%" ItemStyle-CssClass="TypeRow"></asp:TemplateField>
     </Columns>
 </asp:GridView>
@@ -310,12 +309,12 @@
                     <Columns>
                         <asp:BoundField DataField="FaciltyDescription" ItemStyle-Width="11%" ItemStyle-CssClass="FacilityRow" />
                         <asp:BoundField DataField="Comments" ItemStyle-Width="29%" ItemStyle-CssClass="FacilityRow" />
-                        <asp:BoundField DataField="criticalEquipmentOOSExpectedBackOnlineDate" DataFormatString="{0:M/d/yyyy}" ItemStyle-Width="20%" ItemStyle-CssClass="FacilityRow"/>
+                        <asp:BoundField DataField="criticalEquipmentOOSExpectedBackOnlineDate" DataFormatString="{0:M/d/yyyy}" ItemStyle-Width="20%" ItemStyle-CssClass="FacilityRow" />
                     </Columns>
                 </asp:GridView>
             </ItemTemplate>
         </asp:TemplateField>
-        <asp:TemplateField HeaderText="Comments" HeaderStyle-Width="42%" ItemStyle-CssClass="TypeRow"></asp:TemplateField>        
+        <asp:TemplateField HeaderText="Comments" HeaderStyle-Width="42%" ItemStyle-CssClass="TypeRow"></asp:TemplateField>
         <asp:TemplateField HeaderText="Estimated Return to Service Date" HeaderStyle-Width="30%" ItemStyle-CssClass="TypeRow"></asp:TemplateField>
     </Columns>
 </asp:GridView>
@@ -347,8 +346,7 @@
 
 <h2 class="ExceptionsReportHeading">MSW Inventory Exceptions</h2>
 <asp:GridView ID="gridMSWInventoryExceptions" runat="server" OnRowDataBound="gridMSWInventoryExceptions_RowDataBound">
-
-</asp:GridView>  
+</asp:GridView>
 <br />
 <h2 class="ExceptionsReportHeading">Need Access?
 </h2>

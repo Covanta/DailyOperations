@@ -66,7 +66,7 @@ namespace Covanta.UI.DailyOpsInputForm
             facilityTypes.RemoveAt(facilityTypes.Count - 1);
             updateDictionary(facilityTypes, facilityData);
 
-            BoilerOutageFacilityTypeData.DataSource = facilityTypes;
+            //BoilerOutageFacilityTypeData.DataSource = facilityTypes;
             TurbineOutageFacilityTypeData.DataSource = facilityTypes;
             MetalsSystemsFacilityTypeData.DataSource = facilityTypes;
             CriticalAssetsFacilityTypeData.DataSource = facilityTypes;
@@ -76,7 +76,41 @@ namespace Covanta.UI.DailyOpsInputForm
             CommentsFacilityTypeData.DataSource = facilityTypes;
             gridMSWInventoryExceptions.DataSource = mswInventoryExceptions;
 
-            BoilerOutageFacilityTypeData.DataBind();
+            if (facilityData.Any(x => x.UserRowCreated != null))
+            {
+                var boilerIssues = getBoilerIssues(facilityData);
+
+                var statuses = new List<DailyOpsBoilerStatus>();
+                var boilerOutageDataList = new List<DailyOpsBoilerData>();
+                foreach (var boilerIssue in boilerIssues)
+                {
+                    string facility = boilerIssue.FacilityID;
+
+                    var sts = Covanta.Common.Enums.Enums.StatusEnum.NotSet;
+                    statuses = dailyDataManager.GetDailyOpsBoilerStatusByDateAndFacility(ReportDate, facility, ref sts);
+
+                    foreach(var boilerStatus in statuses)
+                    {
+                        var dailyOpsBoilerData = new DailyOpsBoilerData()
+                        {
+                            FacilityType = boilerIssue.FaciltyType,
+                            FacilityDescription = boilerIssue.FaciltyDescription,
+                            BoilerNumber = boilerStatus.BoilerNumber,
+                            Status = boilerStatus.Status,
+                            Downtime = boilerStatus.Downtime,
+                            UnscheduledOutageExplanation = boilerStatus.UnscheduledOutageExplanation,
+                            CumulativeDowntime = boilerStatus.CumulativeDowntime,
+                            MonthToDate = boilerStatus.MonthToDate,
+                            ExpectedRepairDate = boilerStatus.ExpectedRepairDate
+                        };
+                        boilerOutageDataList.Add(dailyOpsBoilerData);
+                    }
+                };
+                BoilerOutageData1.DataSource = boilerOutageDataList.OrderByDescending(x => x.FacilityType);
+                BoilerOutageData1.DataBind();
+            }
+
+            //BoilerOutageFacilityTypeData.DataBind();
             TurbineOutageFacilityTypeData.DataBind();
             MetalsSystemsFacilityTypeData.DataBind();
             CriticalAssetsFacilityTypeData.DataBind();
@@ -134,7 +168,7 @@ namespace Covanta.UI.DailyOpsInputForm
             }
 
             //BoilerOutageFacilityTypeData.HeaderRow.Cells[5].Text = string.Format("Cumulative Downtime for Week Ending {0}/{1}", sundayMonth, sundayDay);
-            BoilerOutageFacilityTypeData.HeaderRow.Cells[7].Text = string.Format("Cumulative Downtime for Month of {0} {1}", ReportDate.ToString("MMMM"), ReportDate.Year);
+            //BoilerOutageFacilityTypeData.HeaderRow.Cells[7].Text = string.Format("Cumulative Downtime for Month of {0} {1}", ReportDate.ToString("MMMM"), ReportDate.Year);
 
             //TurbineOutageFacilityTypeData.HeaderRow.Cells[5].Text = string.Format("Cumulative Downtime for Week Ending {0}/{1}", sundayMonth, sundayDay);
             TurbineOutageFacilityTypeData.HeaderRow.Cells[7].Text = string.Format("Cumulative Downtime for Month of {0} {1}", ReportDate.ToString("MMMM"), ReportDate.Year);
@@ -162,6 +196,51 @@ namespace Covanta.UI.DailyOpsInputForm
                 {
                     e.Row.Cells[0].ForeColor = System.Drawing.Color.White;
                 }
+            }
+        }
+
+
+        protected void BoilerOutageData1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[0].Text = "Facility Type";
+                e.Row.Cells[1].Text = "Facility";
+                e.Row.Cells[2].Text = "Boiler";
+                e.Row.Cells[3].Text = "Status";
+                e.Row.Cells[4].Text = "Current Event Downtime";
+                e.Row.Cells[5].Text = "Current Event Explanation";
+                e.Row.Cells[6].Text = "Current Event Cumulative Downtime";
+                e.Row.Cells[7].Text = string.Format("Cumulative Downtime for Month of {0} {1}", ReportDate.ToString("MMMM"), ReportDate.Year);
+                e.Row.Cells[8].Text = "Estimated Return to Service Date";
+
+                e.Row.Cells[0].Width = Unit.Pixel(12);
+                e.Row.Cells[1].Width = Unit.Pixel(10);
+                e.Row.Cells[2].Width = e.Row.Cells[3].Width = e.Row.Cells[4].Width = e.Row.Cells[5].Width = 
+                e.Row.Cells[6].Width = e.Row.Cells[7].Width = e.Row.Cells[8].Width = Unit.Pixel(11);
+
+                e.Row.Cells[0].CssClass = e.Row.Cells[1].CssClass = e.Row.Cells[2].CssClass = e.Row.Cells[3].CssClass = e.Row.Cells[4].CssClass = 
+                e.Row.Cells[5].CssClass = e.Row.Cells[6].CssClass = e.Row.Cells[7].CssClass = e.Row.Cells[8].CssClass = "SubFacilityRow";
+            }
+            else if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex > 0)
+            {
+                GridViewRow prevrow = BoilerOutageData1.Rows[e.Row.RowIndex - 1];
+                if (e.Row.Cells[0].Text == prevrow.Cells[0].Text)
+                {
+                    e.Row.Cells[0].ForeColor = System.Drawing.Color.White;
+                }
+                if (e.Row.Cells[1].Text == prevrow.Cells[1].Text)
+                {
+                    e.Row.Cells[1].ForeColor = System.Drawing.Color.White;
+                }
+
+                e.Row.Cells[0].Width = Unit.Pixel(12);
+                e.Row.Cells[1].Width = Unit.Pixel(10);
+                e.Row.Cells[2].Width = e.Row.Cells[3].Width = e.Row.Cells[4].Width = e.Row.Cells[5].Width =
+                e.Row.Cells[6].Width = e.Row.Cells[7].Width = e.Row.Cells[8].Width = Unit.Pixel(11);
+
+                e.Row.Cells[0].CssClass = e.Row.Cells[1].CssClass = e.Row.Cells[2].CssClass = e.Row.Cells[3].CssClass = e.Row.Cells[4].CssClass =
+                e.Row.Cells[5].CssClass = e.Row.Cells[6].CssClass = e.Row.Cells[7].CssClass = e.Row.Cells[8].CssClass = "SubFacilityRow";
             }
         }
 

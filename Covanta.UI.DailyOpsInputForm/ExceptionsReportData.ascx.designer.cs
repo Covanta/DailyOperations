@@ -40,13 +40,13 @@ namespace Covanta.UI.DailyOpsInputForm {
         protected global::System.Web.UI.WebControls.GridView EnvironmentalFacilityTypeData;
         
         /// <summary>
-        /// BoilerOutageFacilityTypeData control.
+        /// BoilerOutageData1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView BoilerOutageFacilityTypeData;
+        protected global::System.Web.UI.WebControls.GridView BoilerOutageData1;
         
         /// <summary>
         /// TurbineOutageFacilityTypeData control.

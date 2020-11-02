@@ -76,6 +76,7 @@
     <Compile Include="C4RWasteModel.cs" />
     <Compile Include="CeridianAndADSyncProposedSAMwithNoConflict.cs" />
     <Compile Include="CompleteDowntime.cs" />
+    <Compile Include="DailyOpsBoilerData.cs" />
     <Compile Include="DailyOpsBoilerStatus.cs" />
     <Compile Include="DailyOpsBusinessUnit.cs" />
     <Compile Include="C4RForecastExtractSourceFileInfo.cs" />
