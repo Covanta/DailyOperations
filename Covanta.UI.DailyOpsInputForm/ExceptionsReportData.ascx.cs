@@ -67,31 +67,175 @@ namespace Covanta.UI.DailyOpsInputForm
             updateDictionary(facilityTypes, facilityData);
 
             //BoilerOutageFacilityTypeData.DataSource = facilityTypes;
-            TurbineOutageFacilityTypeData.DataSource = facilityTypes;
-            MetalsSystemsFacilityTypeData.DataSource = facilityTypes;
-            CriticalAssetsFacilityTypeData.DataSource = facilityTypes;
-            FireProtectionFacilityTypeData.DataSource = facilityTypes;
-            EnvironmentalFacilityTypeData.DataSource = facilityTypes;
+            //TurbineOutageFacilityTypeData.DataSource = facilityTypes;
+            //MetalsSystemsFacilityTypeData.DataSource = facilityTypes;
+            //CriticalAssetsFacilityTypeData.DataSource = facilityTypes;
+            //FireProtectionFacilityTypeData.DataSource = facilityTypes;
+            //EnvironmentalFacilityTypeData.DataSource = facilityTypes;
             HealthSafetyFacilityTypeData.DataSource = facilityTypes;
-            CommentsFacilityTypeData.DataSource = facilityTypes;
+            //CommentsFacilityTypeData.DataSource = facilityTypes;
             gridMSWInventoryExceptions.DataSource = mswInventoryExceptions;
 
             if (facilityData.Any(x => x.UserRowCreated != null))
             {
                 var boilerIssues = getBoilerIssues(facilityData);
+                BoilerOutageData1.DataSource = GetStatuses(boilerIssues, "boiler");
+                BoilerOutageData1.DataBind();
 
-                var statuses = new List<DailyOpsBoilerStatus>();
-                var boilerOutageDataList = new List<DailyOpsBoilerData>();
-                foreach (var boilerIssue in boilerIssues)
+                var turbineIssues = getTurbineIssues(facilityData);
+                TurbineGeneratorOutage.DataSource = GetStatuses(turbineIssues, "turbine");
+                TurbineGeneratorOutage.DataBind();
+
+                var metalSystemsIssues = getMetalsSystemsIssues(facilityData);
+                MetalSystemsOutageData.DataSource = GetStatuses(metalSystemsIssues, "metalSystems");
+                MetalSystemsOutageData.DataBind();
+                
+                var criticalAssetsIssues = getCriticalAssetsIssues(facilityData);
+                CriticalAssestsInAlarm.DataSource = GetStatuses(criticalAssetsIssues, "criticalAssets");
+                CriticalAssestsInAlarm.DataBind();
+
+                var criticalEquipmentIssues = getCommentsIssues(facilityData);
+                CriticalEquipment.DataSource = GetStatuses(criticalEquipmentIssues, "criticalEquipment");
+                CriticalEquipment.DataBind();
+
+                var fireProtectionIssues = getFireSystemIssues(facilityData);
+                FireProtection.DataSource = GetStatuses(fireProtectionIssues, "fireProtection");
+                FireProtection.DataBind();
+
+                var environmentalEventsIssues = getEnvironmentalIssues(facilityData);
+                EnvironmentalEvents.DataSource = GetStatuses(environmentalEventsIssues, "environmentalEvents");
+                EnvironmentalEvents.DataBind();
+
+                var healthSafetyIssues = getHealthSafetyIssues(facilityData);
+                HealthSafety.DataSource = GetStatuses(healthSafetyIssues, "healthSafety");
+                HealthSafety.DataBind();
+            }
+
+            //BoilerOutageFacilityTypeData.DataBind();
+            //TurbineOutageFacilityTypeData.DataBind();
+            //MetalsSystemsFacilityTypeData.DataBind();
+            //CriticalAssetsFacilityTypeData.DataBind();
+            //FireProtectionFacilityTypeData.DataBind();
+            //EnvironmentalFacilityTypeData.DataBind();
+            HealthSafetyFacilityTypeData.DataBind();
+            //CommentsFacilityTypeData.DataBind();
+            gridMSWInventoryExceptions.DataBind();
+
+            UpdateDowntimeHeaders();
+        }
+
+        #endregion
+
+        #region protected methods
+
+        public List<DailyOpsStatusData> GetStatuses(List<DailyOpsData> issues, string statusFor)
+        {
+            var statuses = new List<DailyOpsBoilerStatus>();
+            var outageDataList = new List<DailyOpsStatusData>();
+            var sts = Covanta.Common.Enums.Enums.StatusEnum.NotSet;
+
+            foreach (var boilerIssue in issues)
+            {
+                string facility = boilerIssue.FacilityID;
+
+                if (statusFor == "boiler")
                 {
-                    string facility = boilerIssue.FacilityID;
-
-                    var sts = Covanta.Common.Enums.Enums.StatusEnum.NotSet;
                     statuses = dailyDataManager.GetDailyOpsBoilerStatusByDateAndFacility(ReportDate, facility, ref sts);
-
-                    foreach(var boilerStatus in statuses)
+                }
+                else if (statusFor == "turbine")
+                {
+                    statuses = dailyDataManager.GetDailyOpsTurbGenByDateAndFacility(ReportDate, facility, ref sts);
+                }
+                else if(statusFor == "metalSystems")
+                {
+                    var metalSysStatuses = dailyDataManager.GetDailyOpsMetalsStatusByDateAndFacility(ReportDate, facility, ref sts);
+                    foreach (var status in metalSysStatuses)
                     {
-                        var dailyOpsBoilerData = new DailyOpsBoilerData()
+                        var dailyOpsBoilerData = new DailyOpsStatusData()
+                        {
+                            FacilityType = boilerIssue.FaciltyType,
+                            FacilityDescription = boilerIssue.FaciltyDescription,
+                            BoilerNumber = 0,
+                            Status = string.Empty,
+                            Downtime = status.Downtime,
+                            UnscheduledOutageExplanation = status.DowntimeExplanation,
+                            CumulativeDowntime = status.CumulativeDowntime,
+                            MonthToDate = status.MonthToDate,
+                            ExpectedRepairDate = status.ExpectedRepairDate,
+                            SystemType = status.SystemType,
+                            WasReprocessed = status.WasReprocessed
+                        };
+                        outageDataList.Add(dailyOpsBoilerData);
+                    }
+                }
+                else if(statusFor == "criticalAssets")
+                {
+                    var dailyOpsBoilerData = new DailyOpsStatusData()
+                    {
+                        FacilityType = boilerIssue.FaciltyType,
+                        FacilityDescription = boilerIssue.FaciltyDescription,
+                        CriticalAssetsInAlarm = boilerIssue.CriticalAssetsInAlarm,
+                        CriticalAssetsExpectedBackOnlineDate = boilerIssue.CriticalAssetsExpectedBackOnlineDate
+                    };
+                    outageDataList.Add(dailyOpsBoilerData);
+                }
+                else if(statusFor == "criticalEquipment")
+                {
+                    var dailyOpsBoilerData = new DailyOpsStatusData()
+                    {
+                        FacilityType = boilerIssue.FaciltyType,
+                        FacilityDescription = boilerIssue.FaciltyDescription,
+                        Comments = boilerIssue.Comments,
+                        CriticalEquipmentOOSExpectedBackOnlineDate = boilerIssue.CriticalEquipmentOOSExpectedBackOnlineDate
+                    };
+                    outageDataList.Add(dailyOpsBoilerData);
+                }
+                else if(statusFor == "fireProtection")
+                {
+                    var dailyOpsBoilerData = new DailyOpsStatusData()
+                    {
+                        FacilityType = boilerIssue.FaciltyType,
+                        FacilityDescription = boilerIssue.FaciltyDescription,
+                        FireSystemOutOfService = boilerIssue.FireSystemOutOfService,
+                        FireSystemOutOfServiceExpectedBackOnlineDate = boilerIssue.FireSystemOutOfServiceExpectedBackOnlineDate
+                    };
+                    outageDataList.Add(dailyOpsBoilerData);
+                }
+                else if(statusFor == "environmentalEvents")
+                {
+                    List<DailyOpsReportableEvent> environmentalEventsStatuses = dailyDataManager.GetDailyOpsEventsEnvironmentalByDateAndFacility(ReportDate, facility, ref sts);
+                    foreach (var status in environmentalEventsStatuses)
+                    {
+                        var dailyOpsBoilerData = new DailyOpsStatusData()
+                        {
+                            FacilityType = boilerIssue.FaciltyType,
+                            FacilityDescription = boilerIssue.FaciltyDescription,
+                            EventType = status.EventType,
+                            EventDescription = status.Description
+                        };
+                        outageDataList.Add(dailyOpsBoilerData);
+                    }
+                }
+                else if(statusFor == "healthSafety")
+                {
+                    List<DailyOpsReportableEvent> healthSafetyStatuses = dailyDataManager.GetDailyOpsEventsHealthAndSafetyByDateAndFacility(ReportDate, facility, ref sts);
+                    foreach (var status in healthSafetyStatuses)
+                    {
+                        var dailyOpsBoilerData = new DailyOpsStatusData()
+                        {
+                            FacilityType = boilerIssue.FaciltyType,
+                            FacilityDescription = boilerIssue.FaciltyDescription,
+                            EventType = status.EventType,
+                            EventDescription = status.Description
+                        };
+                        outageDataList.Add(dailyOpsBoilerData);
+                    }
+                }
+                if (statusFor != "metalSystems")
+                {
+                    foreach (var boilerStatus in statuses)
+                    {
+                        var dailyOpsBoilerData = new DailyOpsStatusData()
                         {
                             FacilityType = boilerIssue.FaciltyType,
                             FacilityDescription = boilerIssue.FaciltyDescription,
@@ -101,31 +245,14 @@ namespace Covanta.UI.DailyOpsInputForm
                             UnscheduledOutageExplanation = boilerStatus.UnscheduledOutageExplanation,
                             CumulativeDowntime = boilerStatus.CumulativeDowntime,
                             MonthToDate = boilerStatus.MonthToDate,
-                            ExpectedRepairDate = boilerStatus.ExpectedRepairDate
+                            ExpectedRepairDate = boilerStatus.ExpectedRepairDate,
                         };
-                        boilerOutageDataList.Add(dailyOpsBoilerData);
+                        outageDataList.Add(dailyOpsBoilerData);
                     }
-                };
-                BoilerOutageData1.DataSource = boilerOutageDataList.OrderByDescending(x => x.FacilityType);
-                BoilerOutageData1.DataBind();
+                }
             }
-
-            //BoilerOutageFacilityTypeData.DataBind();
-            TurbineOutageFacilityTypeData.DataBind();
-            MetalsSystemsFacilityTypeData.DataBind();
-            CriticalAssetsFacilityTypeData.DataBind();
-            FireProtectionFacilityTypeData.DataBind();
-            EnvironmentalFacilityTypeData.DataBind();
-            HealthSafetyFacilityTypeData.DataBind();
-            CommentsFacilityTypeData.DataBind();
-            gridMSWInventoryExceptions.DataBind();
-
-            UpdateDowntimeHeaders();
+            return outageDataList.OrderByDescending(x => x.FacilityType).ToList();
         }
-
-        #endregion
-
-        #region protected methods
 
         /// <summary>
         /// Calculates and sets date for downtime headers.
@@ -171,10 +298,10 @@ namespace Covanta.UI.DailyOpsInputForm
             //BoilerOutageFacilityTypeData.HeaderRow.Cells[7].Text = string.Format("Cumulative Downtime for Month of {0} {1}", ReportDate.ToString("MMMM"), ReportDate.Year);
 
             //TurbineOutageFacilityTypeData.HeaderRow.Cells[5].Text = string.Format("Cumulative Downtime for Week Ending {0}/{1}", sundayMonth, sundayDay);
-            TurbineOutageFacilityTypeData.HeaderRow.Cells[7].Text = string.Format("Cumulative Downtime for Month of {0} {1}", ReportDate.ToString("MMMM"), ReportDate.Year);
+            //TurbineOutageFacilityTypeData.HeaderRow.Cells[7].Text = string.Format("Cumulative Downtime for Month of {0} {1}", ReportDate.ToString("MMMM"), ReportDate.Year);
 
             //MetalsSystemsFacilityTypeData.HeaderRow.Cells[4].Text = string.Format("Cumulative Downtime for Week Ending {0}/{1}", sundayMonth, sundayDay);
-            MetalsSystemsFacilityTypeData.HeaderRow.Cells[7].Text = string.Format("Cumulative Downtime for Month of {0} {1}", ReportDate.ToString("MMMM"), ReportDate.Year);
+            //MetalsSystemsFacilityTypeData.HeaderRow.Cells[7].Text = string.Format("Cumulative Downtime for Month of {0} {1}", ReportDate.ToString("MMMM"), ReportDate.Year);
         }
 
         #endregion
@@ -198,29 +325,12 @@ namespace Covanta.UI.DailyOpsInputForm
                 }
             }
         }
-
-
+        
         protected void BoilerOutageData1_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.Header)
             {
-                e.Row.Cells[0].Text = "Facility Type";
-                e.Row.Cells[1].Text = "Facility";
-                e.Row.Cells[2].Text = "Boiler";
-                e.Row.Cells[3].Text = "Status";
-                e.Row.Cells[4].Text = "Current Event Downtime";
-                e.Row.Cells[5].Text = "Current Event Explanation";
-                e.Row.Cells[6].Text = "Current Event Cumulative Downtime";
                 e.Row.Cells[7].Text = string.Format("Cumulative Downtime for Month of {0} {1}", ReportDate.ToString("MMMM"), ReportDate.Year);
-                e.Row.Cells[8].Text = "Estimated Return to Service Date";
-
-                e.Row.Cells[0].Width = Unit.Pixel(12);
-                e.Row.Cells[1].Width = Unit.Pixel(10);
-                e.Row.Cells[2].Width = e.Row.Cells[3].Width = e.Row.Cells[4].Width = e.Row.Cells[5].Width = 
-                e.Row.Cells[6].Width = e.Row.Cells[7].Width = e.Row.Cells[8].Width = Unit.Pixel(11);
-
-                e.Row.Cells[0].CssClass = e.Row.Cells[1].CssClass = e.Row.Cells[2].CssClass = e.Row.Cells[3].CssClass = e.Row.Cells[4].CssClass = 
-                e.Row.Cells[5].CssClass = e.Row.Cells[6].CssClass = e.Row.Cells[7].CssClass = e.Row.Cells[8].CssClass = "SubFacilityRow";
             }
             else if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex > 0)
             {
@@ -233,14 +343,126 @@ namespace Covanta.UI.DailyOpsInputForm
                 {
                     e.Row.Cells[1].ForeColor = System.Drawing.Color.White;
                 }
+            }
+        }
+        
+        protected void TurbineGeneratorOutage_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[7].Text = string.Format("Cumulative Downtime for Month of {0} {1}", ReportDate.ToString("MMMM"), ReportDate.Year);
+            }
+            else if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex > 0)
+            {
+                GridViewRow prevrow = TurbineGeneratorOutage.Rows[e.Row.RowIndex - 1];
+                if (e.Row.Cells[0].Text == prevrow.Cells[0].Text)
+                {
+                    e.Row.Cells[0].ForeColor = System.Drawing.Color.White;
+                }
+                if (e.Row.Cells[1].Text == prevrow.Cells[1].Text)
+                {
+                    e.Row.Cells[1].ForeColor = System.Drawing.Color.White;
+                }
+            }
+        }
 
-                e.Row.Cells[0].Width = Unit.Pixel(12);
-                e.Row.Cells[1].Width = Unit.Pixel(10);
-                e.Row.Cells[2].Width = e.Row.Cells[3].Width = e.Row.Cells[4].Width = e.Row.Cells[5].Width =
-                e.Row.Cells[6].Width = e.Row.Cells[7].Width = e.Row.Cells[8].Width = Unit.Pixel(11);
+        protected void MetalSystemsOutageData_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[7].Text = string.Format("Cumulative Downtime for Month of {0} {1}", ReportDate.ToString("MMMM"), ReportDate.Year);
+            }
+            else if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex > 0)
+            {
+                GridViewRow prevrow = MetalSystemsOutageData.Rows[e.Row.RowIndex - 1];
+                if (e.Row.Cells[0].Text == prevrow.Cells[0].Text)
+                {
+                    e.Row.Cells[0].ForeColor = System.Drawing.Color.White;
+                }
+                if (e.Row.Cells[1].Text == prevrow.Cells[1].Text)
+                {
+                    e.Row.Cells[1].ForeColor = System.Drawing.Color.White;
+                }
+            }
+        }
+        
+        protected void CriticalAssestsInAlarm_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex > 0)
+            {
+                GridViewRow prevrow = CriticalAssestsInAlarm.Rows[e.Row.RowIndex - 1];
+                if (e.Row.Cells[0].Text == prevrow.Cells[0].Text)
+                {
+                    e.Row.Cells[0].ForeColor = System.Drawing.Color.White;
+                }
+                if (e.Row.Cells[1].Text == prevrow.Cells[1].Text)
+                {
+                    e.Row.Cells[1].ForeColor = System.Drawing.Color.White;
+                }
+            }
+        }
 
-                e.Row.Cells[0].CssClass = e.Row.Cells[1].CssClass = e.Row.Cells[2].CssClass = e.Row.Cells[3].CssClass = e.Row.Cells[4].CssClass =
-                e.Row.Cells[5].CssClass = e.Row.Cells[6].CssClass = e.Row.Cells[7].CssClass = e.Row.Cells[8].CssClass = "SubFacilityRow";
+        protected void CriticalEquipment_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex > 0)
+            {
+                GridViewRow prevrow = CriticalEquipment.Rows[e.Row.RowIndex - 1];
+                if (e.Row.Cells[0].Text == prevrow.Cells[0].Text)
+                {
+                    e.Row.Cells[0].ForeColor = System.Drawing.Color.White;
+                }
+                if (e.Row.Cells[1].Text == prevrow.Cells[1].Text)
+                {
+                    e.Row.Cells[1].ForeColor = System.Drawing.Color.White;
+                }
+            }
+        }
+
+        protected void FireProtection_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex > 0)
+            {
+                GridViewRow prevrow = FireProtection.Rows[e.Row.RowIndex - 1];
+                if (e.Row.Cells[0].Text == prevrow.Cells[0].Text)
+                {
+                    e.Row.Cells[0].ForeColor = System.Drawing.Color.White;
+                }
+                if (e.Row.Cells[1].Text == prevrow.Cells[1].Text)
+                {
+                    e.Row.Cells[1].ForeColor = System.Drawing.Color.White;
+                }
+            }
+        }
+        
+        protected void EnvironmentalEvents_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex > 0)
+            {
+                GridViewRow prevrow = EnvironmentalEvents.Rows[e.Row.RowIndex - 1];
+                if (e.Row.Cells[0].Text == prevrow.Cells[0].Text)
+                {
+                    e.Row.Cells[0].ForeColor = System.Drawing.Color.White;
+                }
+                if (e.Row.Cells[1].Text == prevrow.Cells[1].Text)
+                {
+                    e.Row.Cells[1].ForeColor = System.Drawing.Color.White;
+                }
+            }
+        }
+
+        protected void HealthSafety_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex > 0)
+            {
+                GridViewRow prevrow = HealthSafety.Rows[e.Row.RowIndex - 1];
+                if (e.Row.Cells[0].Text == prevrow.Cells[0].Text)
+                {
+                    e.Row.Cells[0].ForeColor = System.Drawing.Color.White;
+                }
+                if (e.Row.Cells[1].Text == prevrow.Cells[1].Text)
+                {
+                    e.Row.Cells[1].ForeColor = System.Drawing.Color.White;
+                }
             }
         }
 
@@ -643,7 +865,14 @@ namespace Covanta.UI.DailyOpsInputForm
         {
             //return !(boilerStatus.Equals("") || boilerStatus.Equals("Operational"));
             //Changed by Eric Chen Sept 10 2017 to remove decomissioned
-            return !(boilerStatus.Equals("") || boilerStatus.Equals("Operational") || boilerStatus.Equals("Decommissioned"));
+            if (boilerStatus == null)
+            {
+                return false;
+            }
+            else
+            {
+                return !(boilerStatus.Equals("") || boilerStatus.Equals("Operational") || boilerStatus.Equals("Decommissioned"));
+            }
         }
 
         /// <summary>

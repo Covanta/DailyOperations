@@ -8,7 +8,7 @@ namespace Covanta.Entities
     /// <summary>
     /// This represents the status of a particular boiler in a particular facility
     /// </summary>
-    public class DailyOpsBoilerData
+    public class DailyOpsStatusData
     {
         #region public properties
 
@@ -29,6 +29,26 @@ namespace Covanta.Entities
         public decimal MonthToDate { get; set; }
 
         public DateTime ExpectedRepairDate { get; set; }
+
+        public string SystemType { get; set; }
+
+        public string WasReprocessed { get; set; }
+
+        public string CriticalAssetsInAlarm { get; set; }
+
+        public DateTime CriticalAssetsExpectedBackOnlineDate { get; set; }
+
+        public string Comments { get; set; }
+
+        public DateTime CriticalEquipmentOOSExpectedBackOnlineDate { get; set; }
+
+        public string FireSystemOutOfService { get; set; }
+
+        public DateTime FireSystemOutOfServiceExpectedBackOnlineDate { get; set; }
+
+        public string EventType { get; set; }
+
+        public string EventDescription { get; set; }
 
         #endregion
     }
