@@ -31,15 +31,6 @@ namespace Covanta.UI.DailyOpsInputForm {
         protected global::System.Web.UI.WebControls.GridView HealthSafety;
         
         /// <summary>
-        /// HealthSafetyFacilityTypeData control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView HealthSafetyFacilityTypeData;
-        
-        /// <summary>
         /// EnvironmentalEvents control.
         /// </summary>
         /// <remarks>
@@ -47,15 +38,6 @@ namespace Covanta.UI.DailyOpsInputForm {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView EnvironmentalEvents;
-        
-        /// <summary>
-        /// EnvironmentalFacilityTypeData control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView EnvironmentalFacilityTypeData;
         
         /// <summary>
         /// BoilerOutageData1 control.
@@ -76,15 +58,6 @@ namespace Covanta.UI.DailyOpsInputForm {
         protected global::System.Web.UI.WebControls.GridView TurbineGeneratorOutage;
         
         /// <summary>
-        /// TurbineOutageFacilityTypeData control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView TurbineOutageFacilityTypeData;
-        
-        /// <summary>
         /// MetalSystemsOutageData control.
         /// </summary>
         /// <remarks>
@@ -92,15 +65,6 @@ namespace Covanta.UI.DailyOpsInputForm {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView MetalSystemsOutageData;
-        
-        /// <summary>
-        /// MetalsSystemsFacilityTypeData control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView MetalsSystemsFacilityTypeData;
         
         /// <summary>
         /// CriticalAssestsInAlarm control.
@@ -112,15 +76,6 @@ namespace Covanta.UI.DailyOpsInputForm {
         protected global::System.Web.UI.WebControls.GridView CriticalAssestsInAlarm;
         
         /// <summary>
-        /// CriticalAssetsFacilityTypeData control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView CriticalAssetsFacilityTypeData;
-        
-        /// <summary>
         /// CriticalEquipment control.
         /// </summary>
         /// <remarks>
@@ -130,15 +85,6 @@ namespace Covanta.UI.DailyOpsInputForm {
         protected global::System.Web.UI.WebControls.GridView CriticalEquipment;
         
         /// <summary>
-        /// CommentsFacilityTypeData control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView CommentsFacilityTypeData;
-        
-        /// <summary>
         /// FireProtection control.
         /// </summary>
         /// <remarks>
@@ -146,15 +92,6 @@ namespace Covanta.UI.DailyOpsInputForm {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView FireProtection;
-        
-        /// <summary>
-        /// FireProtectionFacilityTypeData control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView FireProtectionFacilityTypeData;
         
         /// <summary>
         /// gridMSWInventoryExceptions control.
