@@ -14,7 +14,6 @@ namespace Covanta.UI.C4RWasteTypeExtractFromSharePoint
             if (isAppAlreadyRunning())
             {
                 return;
-
             }
 
             try

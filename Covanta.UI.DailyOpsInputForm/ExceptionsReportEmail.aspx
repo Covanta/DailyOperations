@@ -23,6 +23,29 @@
 				<%= DateTime.Now.AddDays(-1).ToShortDateString() %></a></h1>
 		<cov:ExceptionsReportData ID="ExceptionsReportData" runat="server" />
 	</div>
+        <div>
+    <table cellspacing="0" rules="all" border="1" id="ExceptionsReportData_CommentsFacilityTypeData" style="border-collapse: collapse;">
+        <tbody>
+            <tr>
+                <td class="TypeRow"></td>
+                <td class="TypeRow" colspan="2">
+                    <div>
+                        <table cellspacing="0" rules="all" border="1" id="ExceptionsReportData_CommentsFacilityTypeData_ctl02_CommentsData" style="border-collapse: collapse;">
+                            <tbody>
+                                <tr>
+                                    <td class="FacilityRow" style="width: 40%;"></td>
+                                    <td class="FacilityRow" style="width: 60%;">
+                                        <b style="text-decoration: underline;">Daily Global OPS Exceptions Report Power BI: <a href="https://app.powerbi.com/groups/me/apps/b9d85c40-4eef-4409-847a-14f442dc488d/reports/9cae9272-f970-4a82-8df5-35dad29ccc96/ReportSection7e645a9074a2b3253660?ctid=4aabd90b-7a09-4a17-b04d-52f3f6a8fab0">click Here</a></b>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 	</form>
 </body>
 </html>

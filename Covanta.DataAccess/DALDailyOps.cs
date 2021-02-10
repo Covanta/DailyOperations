@@ -715,6 +715,7 @@ namespace Covanta.DataAccess
                         command.Parameters.AddWithValue("@PitInventory", data.PitInventory);
                         command.Parameters.AddWithValue("@PreShredInventory", data.PreShredInventory);
                         command.Parameters.AddWithValue("@PostShredInventory", data.PostShredInventory);
+                        command.Parameters.AddWithValue("@MassBurnInventory", data.MassBurnInventory);
 
                         command.Parameters.AddWithValue("@DownTimeBoiler1", data.DownTimeBoiler1);
                         command.Parameters.AddWithValue("@OutageTypeBoiler1", data.OutageTypeBoiler1);
@@ -1155,6 +1156,7 @@ namespace Covanta.DataAccess
             decimal pitInventory = bindObj.ToDecimal("PitInventory");
             decimal preShredInventory = bindObj.ToDecimal("PreShredInventory");
             decimal postShredInventory = bindObj.ToDecimal("PostShredInventory");
+            decimal massBurnInventory = bindObj.ToDecimal("MassBurnInventory");
 
             DateTime Boiler1ExpectedRepairDate = bindObj.ToDate("Boiler1ExpectedBackOnlineDate");
             DateTime Boiler2ExpectedRepairDate = bindObj.ToDate("Boiler2ExpectedBackOnlineDate");
@@ -1187,7 +1189,8 @@ namespace Covanta.DataAccess
                 isEnvironmentalEvents, environmentalEventsType, environmentalEventsExplanation,
                 isCEMSEvents, cemsEventsType, cemsEventsExplanation,
                 healthSafetyFirstAid, healthSafetyOSHAReportable, healthSafetyNearMiss, healthSafetyContractor,
-                comments, userRowCreated, pitInventory, CriticalAssetsExpectedBackOnlineDate, CriticalEquipmentOOSExpectedBackOnlineDate, preShredInventory, postShredInventory);
+                comments, userRowCreated, pitInventory, CriticalAssetsExpectedBackOnlineDate, CriticalEquipmentOOSExpectedBackOnlineDate, preShredInventory, 
+                postShredInventory, massBurnInventory);
 
             // these fields are not in the constructor so we set them here.           
             obj.DateLastModified = bindObj.ToDate("DateLastModified");
@@ -1498,6 +1501,7 @@ namespace Covanta.DataAccess
                 decimal pitInventory = bindObj.ToDecimal("PitInventory");
                 decimal preShredInventory = bindObj.ToDecimal("PreShredInventory");
                 decimal postShredInventory = bindObj.ToDecimal("PostShredInventory");
+                decimal massBurnInventory = bindObj.ToDecimal("MassBurnInventory");
                 DateTime CriticalAssetsExpectedBackOnlineDate = bindObj.ToDate("CriticalAssetsExpectedBackOnlineDate");
                 DateTime CriticalEquipmentOOSExpectedBackOnlineDate = bindObj.ToDate("CriticalEquipmentOOSExpectedBackOnlineDate");
 
@@ -1522,7 +1526,8 @@ namespace Covanta.DataAccess
                     isEnvironmentalEvents, environmentalEventsType, environmentalEventsExplanation,
                     isCEMSEvents, cemsEventsType, cemsEventsExplanation,
                     healthSafetyFirstAid, healthSafetyOSHAReportable, healthSafetyNearMiss, healthSafetyContractor,
-                    comments, userRowCreated, pitInventory, CriticalAssetsExpectedBackOnlineDate, CriticalEquipmentOOSExpectedBackOnlineDate, preShredInventory, postShredInventory);
+                    comments, userRowCreated, pitInventory, CriticalAssetsExpectedBackOnlineDate, CriticalEquipmentOOSExpectedBackOnlineDate, preShredInventory, 
+                    postShredInventory, massBurnInventory);
 
                 // these fields are not in the constructor so we set them here.           
                 obj.DateLastModified = bindObj.ToDate("DateLastModified");

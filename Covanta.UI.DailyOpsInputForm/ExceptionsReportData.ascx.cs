@@ -71,40 +71,51 @@ namespace Covanta.UI.DailyOpsInputForm
             {
                 facilityData = facilityData.Where(x => x.UserRowCreated != null).ToList();
                 var boilerIssues = getBoilerIssues(facilityData);
-                BoilerOutageData1.DataSource = GetStatuses(boilerIssues, "boiler");
+                var boilerStatuses = GetStatuses(boilerIssues, "boiler");
+                BoilerOutageData1.DataSource = boilerStatuses;
                 BoilerOutageData1.DataBind();
 
                 var turbineIssues = getTurbineIssues(facilityData);
-                TurbineGeneratorOutage.DataSource = GetStatuses(turbineIssues, "turbine");
+                var turbineStatuses = GetStatuses(turbineIssues, "turbine");
+                TurbineGeneratorOutage.DataSource = turbineStatuses;
                 TurbineGeneratorOutage.DataBind();
 
                 var metalSystemsIssues = getMetalsSystemsIssues(facilityData);
-                MetalSystemsOutageData.DataSource = GetStatuses(metalSystemsIssues, "metalSystems");
+                var metalSystemStatuses = GetStatuses(metalSystemsIssues, "metalSystems");
+                MetalSystemsOutageData.DataSource = metalSystemStatuses;
                 MetalSystemsOutageData.DataBind();
                 
                 var criticalAssetsIssues = getCriticalAssetsIssues(facilityData);
-                CriticalAssestsInAlarm.DataSource = GetStatuses(criticalAssetsIssues, "criticalAssets");
+                var criticalAssetsStatuses = GetStatuses(criticalAssetsIssues, "criticalAssets");
+                CriticalAssestsInAlarm.DataSource = criticalAssetsStatuses;
                 CriticalAssestsInAlarm.DataBind();
 
                 var criticalEquipmentIssues = getCommentsIssues(facilityData);
-                CriticalEquipment.DataSource = GetStatuses(criticalEquipmentIssues, "criticalEquipment");
+                var criticalEquipmentStatuses = GetStatuses(criticalEquipmentIssues, "criticalEquipment");
+                CriticalEquipment.DataSource = criticalEquipmentStatuses;
                 CriticalEquipment.DataBind();
 
                 var fireProtectionIssues = getFireSystemIssues(facilityData);
-                FireProtection.DataSource = GetStatuses(fireProtectionIssues, "fireProtection");
+                var fireProtectionStatuses = GetStatuses(fireProtectionIssues, "fireProtection");
+                FireProtection.DataSource = fireProtectionStatuses;
                 FireProtection.DataBind();
 
                 var environmentalEventsIssues = getEnvironmentalIssues(facilityData);
-                EnvironmentalEvents.DataSource = GetStatuses(environmentalEventsIssues, "environmentalEvents");
+                var environmentalEventsStatuses = GetStatuses(environmentalEventsIssues, "environmentalEvents");
+                EnvironmentalEvents.DataSource = environmentalEventsStatuses;
                 EnvironmentalEvents.DataBind();
 
                 var healthSafetyIssues = getHealthSafetyIssues(facilityData);
-                HealthSafety.DataSource = GetStatuses(healthSafetyIssues, "healthSafety");
+                var healthSafetyStatuses = GetStatuses(healthSafetyIssues, "healthSafety");
+                HealthSafety.DataSource = healthSafetyStatuses;
                 HealthSafety.DataBind();
             }
 
-            gridMSWInventoryExceptions.DataSource = mswInventoryExceptions;
-            gridMSWInventoryExceptions.DataBind();
+            if (mswInventoryExceptions != null)
+            {
+                gridMSWInventoryExceptions.DataSource = mswInventoryExceptions;
+                gridMSWInventoryExceptions.DataBind();
+            }
 
             UpdateDowntimeHeaders();
         }
@@ -144,8 +155,8 @@ namespace Covanta.UI.DailyOpsInputForm
                             Status = string.Empty,
                             Downtime = status.Downtime,
                             UnscheduledOutageExplanation = status.DowntimeExplanation,
-                            CumulativeDowntime = status.CumulativeDowntime,
-                            MonthToDate = status.MonthToDate,
+                            CumulativeDowntime = (decimal)Math.Round(TimeSpan.FromHours((double)status.CumulativeDowntime).TotalDays, 2),
+                            MonthToDate = (decimal)Math.Round(TimeSpan.FromHours((double)status.MonthToDate).TotalDays, 2),
                             ExpectedRepairDate = status.ExpectedRepairDate,
                             SystemType = status.SystemType,
                             WasReprocessed = status.WasReprocessed
@@ -228,8 +239,8 @@ namespace Covanta.UI.DailyOpsInputForm
                             Status = boilerStatus.Status,
                             Downtime = boilerStatus.Downtime,
                             UnscheduledOutageExplanation = boilerStatus.UnscheduledOutageExplanation,
-                            CumulativeDowntime = boilerStatus.CumulativeDowntime,
-                            MonthToDate = boilerStatus.MonthToDate,
+                            CumulativeDowntime = (decimal)Math.Round(TimeSpan.FromHours((double)boilerStatus.CumulativeDowntime).TotalDays, 2),
+                            MonthToDate = (decimal)Math.Round(TimeSpan.FromHours((double)boilerStatus.MonthToDate).TotalDays, 2),
                             ExpectedRepairDate = boilerStatus.ExpectedRepairDate,
                         };
                         outageDataList.Add(dailyOpsBoilerData);
@@ -294,14 +305,7 @@ namespace Covanta.UI.DailyOpsInputForm
         #region protected methods
         protected void gridMSWInventoryExceptions_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.Header)
-            {
-                e.Row.Cells[0].Text = "Facility Type";
-                e.Row.Cells[3].Text = "Actual Inventory";
-                e.Row.Cells[4].Text = "Inventory Min Limit";
-                e.Row.Cells[5].Text = "Inventory Max Limit";
-            }
-            else if(e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex > 0)
+            if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex > 0)
             {
                 GridViewRow prevrow = gridMSWInventoryExceptions.Rows[e.Row.RowIndex - 1];
                 if(e.Row.Cells[0].Text == prevrow.Cells[0].Text)
@@ -315,7 +319,7 @@ namespace Covanta.UI.DailyOpsInputForm
         {
             if (e.Row.RowType == DataControlRowType.Header)
             {
-                e.Row.Cells[7].Text = string.Format("Cumulative Downtime for Month of {0} {1}", ReportDate.ToString("MMMM"), ReportDate.Year);
+                e.Row.Cells[7].Text = string.Format("Cumulative Downtime for Month of {0} {1} (Days)", ReportDate.ToString("MMMM"), ReportDate.Year);
             }
             else if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex > 0)
             {
@@ -335,7 +339,7 @@ namespace Covanta.UI.DailyOpsInputForm
         {
             if (e.Row.RowType == DataControlRowType.Header)
             {
-                e.Row.Cells[7].Text = string.Format("Cumulative Downtime for Month of {0} {1}", ReportDate.ToString("MMMM"), ReportDate.Year);
+                e.Row.Cells[7].Text = string.Format("Cumulative Downtime for Month of {0} {1} (Days)", ReportDate.ToString("MMMM"), ReportDate.Year);
             }
             else if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex > 0)
             {
@@ -355,7 +359,7 @@ namespace Covanta.UI.DailyOpsInputForm
         {
             if (e.Row.RowType == DataControlRowType.Header)
             {
-                e.Row.Cells[7].Text = string.Format("Cumulative Downtime for Month of {0} {1}", ReportDate.ToString("MMMM"), ReportDate.Year);
+                e.Row.Cells[7].Text = string.Format("Cumulative Downtime for Month of {0} {1} (Days)", ReportDate.ToString("MMMM"), ReportDate.Year);
             }
             else if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex > 0)
             {

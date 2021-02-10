@@ -117,7 +117,7 @@ namespace Covanta.Entities
                          bool isCEMSEvents, string cemsEventsType, string cemsEventsExplanation,
                          string healthSafetyFirstAid, string healthSafetyOSHAReportable, string healthSafetyNearMiss, string healthSafetyContractor,
                          string comments, string userRowCreated, decimal pitInventory, DateTime criticalAssetsExpectedBackOnlineDate, 
-                         DateTime criticalEquipmentOOSExpectedBackOnlineDate, decimal preShredInventory, decimal postShredInventory)
+                         DateTime criticalEquipmentOOSExpectedBackOnlineDate, decimal preShredInventory, decimal postShredInventory, decimal massBurnInventory)
         {
             FacilityID = facilityID;
             ReportingDate = reportingDate;
@@ -220,6 +220,7 @@ namespace Covanta.Entities
             PitInventory = pitInventory;
             PreShredInventory = preShredInventory;
             PostShredInventory = postShredInventory;
+            MassBurnInventory = massBurnInventory;
 
             CriticalAssetsExpectedBackOnlineDate = criticalAssetsExpectedBackOnlineDate;
             CriticalEquipmentOOSExpectedBackOnlineDate = criticalEquipmentOOSExpectedBackOnlineDate;
@@ -364,6 +365,8 @@ namespace Covanta.Entities
         public decimal PreShredInventory { get; set; }
 
         public decimal PostShredInventory { get; set; }
+
+        public decimal MassBurnInventory { get; set; }
 
         public DateTime CriticalAssetsExpectedBackOnlineDate { get; set; }
 

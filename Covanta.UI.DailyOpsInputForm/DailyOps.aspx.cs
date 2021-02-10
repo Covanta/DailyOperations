@@ -262,19 +262,28 @@ namespace Covanta.UI.DailyOpsInputForm
                 doWhereControl(clearContents, isClearableField);
                 DisablePreviousDecommissionedFields();
                 HidePalmsBoiler12fields();
+            }
 
-                if (data.FaciltyType == "RDF")
+            if (data.FaciltyType == "RDF")
+            {
+                PreShredInventoryRow.Visible = true;
+                PostShredInventoryRow.Visible = true;
+                PitInventoryRow.Visible = false;
+                if (data.FacilityID == "HONOL")
                 {
-                    PreShredInventoryRow.Visible = true;
-                    PostShredInventoryRow.Visible = true;
-                    PitInventoryRow.Visible = false;
+                    MassBurnInventoryRow.Visible = true;
                 }
                 else
                 {
-                    PreShredInventoryRow.Visible = false;
-                    PostShredInventoryRow.Visible = false;
-                    PitInventoryRow.Visible = true;
+                    MassBurnInventoryRow.Visible = false;
                 }
+            }
+            else
+            {
+                PreShredInventoryRow.Visible = false;
+                PostShredInventoryRow.Visible = false;
+                MassBurnInventoryRow.Visible = false;
+                PitInventoryRow.Visible = true;
             }
         }
 
@@ -449,11 +458,17 @@ namespace Covanta.UI.DailyOpsInputForm
                 PitInventoryRow.Visible = false;
                 PreShredInventory.Text = "" + data.PreShredInventory;
                 PostShredInventory.Text = "" + data.PostShredInventory;
+                if (data.FacilityID == "HONOL")
+                {
+                    MassBurnInventoryRow.Visible = true;
+                    MassBurnInventory.Text = "" + data.MassBurnInventory;
+                }
             }
             else
             {
                 PreShredInventoryRow.Visible = false;
                 PostShredInventoryRow.Visible = false;
+                MassBurnInventoryRow.Visible = false;
                 PitInventoryRow.Visible = true;
             }
 
@@ -820,8 +835,8 @@ namespace Covanta.UI.DailyOpsInputForm
         {
             if (Facility.SelectedValue == "PALM2")
             {
-                Page.FindControl("Boiler1Input").Visible = false;
-                Page.FindControl("Boiler2Input").Visible = false;
+                //Page.FindControl("Boiler1Input").Visible = false;
+                //Page.FindControl("Boiler2Input").Visible = false;
             }
         }
         /// <summary>
@@ -916,6 +931,7 @@ namespace Covanta.UI.DailyOpsInputForm
             decimal pitInventory = getNumericFieldValue(PitInventory);
             decimal preShredInventory = getNumericFieldValue(PreShredInventory);
             decimal postShredInventory = getNumericFieldValue(PostShredInventory);
+            decimal massBurnInventory = getNumericFieldValue(MassBurnInventory);
 
             string boiler1Status = (Boiler1Status.Visible) ? Boiler1Status.SelectedValue : "";
             decimal boiler1Downtime = (!boiler1Status.Equals("") && !boiler1Status.Equals("Operational")) ? getNumericFieldValue(Boiler1Downtime) : 0;
@@ -1173,7 +1189,8 @@ namespace Covanta.UI.DailyOpsInputForm
                     criticalAssetsDate,
                     commentsDate,
                     preShredInventory,
-                    postShredInventory
+                    postShredInventory,
+                    massBurnInventory
                     );
             dod.ScheduledOutageReasonBoiler1 = boiler1Scheduled;
             dod.ScheduledOutageReasonBoiler2 = boiler2Scheduled;

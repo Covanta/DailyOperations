@@ -436,6 +436,42 @@ namespace Covanta.UI.DailyOpsInputForm {
         protected global::System.Web.UI.WebControls.Label PostShredInventoryMessage;
         
         /// <summary>
+        /// MassBurnInventoryRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow MassBurnInventoryRow;
+        
+        /// <summary>
+        /// MassBurnInventorylabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label MassBurnInventorylabel;
+        
+        /// <summary>
+        /// MassBurnInventory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox MassBurnInventory;
+        
+        /// <summary>
+        /// MassBurnInventoryMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label MassBurnInventoryMessage;
+        
+        /// <summary>
         /// Boiler1Input control.
         /// </summary>
         /// <remarks>

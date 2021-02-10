@@ -6,6 +6,9 @@ using System.IO;
 using System.Net;
 using System.Configuration;
 using Covanta.Utilities.Helpers;
+using Microsoft.SharePoint.Client;
+using System.Security;
+using File = Microsoft.SharePoint.Client.File;
 
 namespace Covanta.UI.C4RWasteTypeExtractFromSharePoint
 {
@@ -43,7 +46,15 @@ namespace Covanta.UI.C4RWasteTypeExtractFromSharePoint
         /// </summary>
         public void ProcessJob()
         {
-            copyFileToOutputPath();
+            bool downloadFileFromSharepointOnline = bool.Parse(ConfigurationManager.AppSettings["EnableFileDownloadFromSharepointOnline"]);
+            if (downloadFileFromSharepointOnline)
+            {
+                DownloadFileToOutputPathFromSharepointOnline();
+            }
+            else
+            {
+                copyFileToOutputPath();
+            }
             //sendCompletedEmail();
         }
 
@@ -75,6 +86,44 @@ namespace Covanta.UI.C4RWasteTypeExtractFromSharePoint
                 Console.WriteLine(ex.Message);
                 throw new Exception("Error while copying file " + myStringWebResource, ex);
             }
+        }
+
+        private void DownloadFileToOutputPathFromSharepointOnline()
+        {
+            using (ClientContext ctx = new ClientContext(ConfigurationManager.AppSettings["SharepointWebUrl"]))
+            {
+                string password = ConfigurationManager.AppSettings["SharepontOnline_Password"];
+                string username = ConfigurationManager.AppSettings["SharepontOnline_UserName"];
+
+                var secret = new SecureString();
+                foreach (char c in password)
+                {
+                    secret.AppendChar(c);
+                }
+                ctx.Credentials = new SharePointOnlineCredentials(username, secret);
+                ctx.Load(ctx.Web);
+                ctx.ExecuteQuery();
+
+                List list = ctx.Web.Lists.GetByTitle(ConfigurationManager.AppSettings["SharepontLibraryName"]);
+
+                FileCollection files = list.RootFolder.Folders.GetByUrl(ConfigurationManager.AppSettings["SharepontFolderToDownloadFileFrom"]).Files;
+
+                ctx.Load(files);
+                ctx.ExecuteQuery();
+
+                foreach (Microsoft.SharePoint.Client.File file in files.Where(x=>x.Name.Contains(ConfigurationManager.AppSettings["C4RWasteTypeExtractFromSharePointOutputFileName"])))
+                {
+                    FileInformation fileinfo = Microsoft.SharePoint.Client.File.OpenBinaryDirect(ctx, file.ServerRelativeUrl);
+
+                    ctx.ExecuteQuery();
+
+                    using (FileStream filestream = new FileStream(ConfigurationManager.AppSettings["C4RWasteTypeExtractFromSharePointOutputPath"] + file.Name, FileMode.Create))
+                    {
+                        fileinfo.Stream.CopyTo(filestream);
+                    }
+
+                }
+            };
         }
 
         private void sendCompletedEmail()

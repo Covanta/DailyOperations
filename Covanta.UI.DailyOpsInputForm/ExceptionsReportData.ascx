@@ -49,8 +49,7 @@
         padding-bottom: 5px;
     }
 </style>
-<h2 class="ExceptionsReportHeading">Summary
-</h2>
+<h2 class="ExceptionsReportHeading">Summary</h2>
 <asp:GridView ID="SummaryData" class="SummaryData" runat="server" AutoGenerateColumns="false">
     <Columns>
         <asp:BoundField HeaderText="Facility Type" DataField="FacilityType" />
@@ -93,9 +92,9 @@
         <asp:BoundField HeaderText="Facility" DataField="FacilityDescription" ItemStyle-Width="11%" ItemStyle-CssClass="FacilityRow" />
         <asp:BoundField HeaderText="Boiler" DataField="BoilerNumber" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
         <asp:BoundField HeaderText="Status" DataField="Status" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
-        <asp:BoundField HeaderText="Current Event Downtime" DataField="Downtime" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
+        <asp:BoundField HeaderText="Current Event Downtime (Hrs)" DataField="Downtime" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
         <asp:BoundField HeaderText="Current Event Explanation" DataField="UnscheduledOutageExplanation" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
-        <asp:BoundField HeaderText="Current Event Cumulative Downtime" DataField="CumulativeDowntime" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
+        <asp:BoundField HeaderText="Current Event Cumulative Downtime (Days)" DataField="CumulativeDowntime" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
         <asp:BoundField DataField="MonthToDate" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
         <asp:BoundField HeaderText="Estimated Return to Service Date" DataField="ExpectedRepairDate" DataFormatString="{0:M/d/yyyy}" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
     </Columns>
@@ -108,25 +107,24 @@
         <asp:BoundField HeaderText="Facility" DataField="FacilityDescription" ItemStyle-Width="11%" ItemStyle-CssClass="FacilityRow" />
         <asp:BoundField HeaderText="Boiler" DataField="BoilerNumber" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
         <asp:BoundField HeaderText="Status" DataField="Status" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
-        <asp:BoundField HeaderText="Current Event Downtime" DataField="Downtime" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
+        <asp:BoundField HeaderText="Current Event Downtime (Hrs)" DataField="Downtime" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
         <asp:BoundField HeaderText="Current Event Explanation" DataField="UnscheduledOutageExplanation" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
-        <asp:BoundField HeaderText="Current Event Cumulative Downtime" DataField="CumulativeDowntime" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
+        <asp:BoundField HeaderText="Current Event Cumulative Downtime (Days)" DataField="CumulativeDowntime" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
         <asp:BoundField DataField="MonthToDate" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
         <asp:BoundField HeaderText="Estimated Return to Service Date" DataField="ExpectedRepairDate" DataFormatString="{0:M/d/yyyy}" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
     </Columns>
 </asp:GridView>
 
-<h2 class="ExceptionsReportHeading">Metals Systems Outage Log
-</h2>
+<h2 class="ExceptionsReportHeading">Metals Systems Outage Log</h2>
 <asp:GridView ID="MetalSystemsOutageData" runat="server" AutoGenerateColumns="false" OnRowDataBound="MetalSystemsOutageData_RowDataBound">
     <Columns>
         <asp:BoundField HeaderText="Facility Type" DataField="FacilityType" ItemStyle-Width="11%" ItemStyle-CssClass="TypeRow" />
         <asp:BoundField HeaderText="Facility" DataField="FacilityDescription" ItemStyle-Width="11%" ItemStyle-CssClass="FacilityRow" />
         <asp:BoundField HeaderText="System" DataField="SystemType" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
         <asp:BoundField HeaderText="Will ash be reprocessed?" DataField="WasReprocessed" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
-        <asp:BoundField HeaderText="Current Event Downtime" DataField="Downtime" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
+        <asp:BoundField HeaderText="Current Event Downtime (Hrs)" DataField="Downtime" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
         <asp:BoundField HeaderText="Current Event Explanation" DataField="UnscheduledOutageExplanation" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
-        <asp:BoundField HeaderText="Current Event Cumulative Downtime" DataField="CumulativeDowntime" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
+        <asp:BoundField HeaderText="Current Event Cumulative Downtime (Days)" DataField="CumulativeDowntime" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
         <asp:BoundField DataField="MonthToDate" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
         <asp:BoundField HeaderText="Estimated Return to Service Date" DataField="ExpectedRepairDate" ItemStyle-Width="11%" DataFormatString="{0:M/d/yyyy}" ItemStyle-CssClass="SubFacilityRow" />
     </Columns>
@@ -142,8 +140,7 @@
     </Columns>
 </asp:GridView>
 
-<h2 class="ExceptionsReportHeading">Critical Equipment OOS/Lack of Redundancy 
-</h2>
+<h2 class="ExceptionsReportHeading">Critical Equipment OOS/Lack of Redundancy</h2>
 <asp:GridView ID="CriticalEquipment" runat="server" AutoGenerateColumns="false" OnRowDataBound="CriticalEquipment_RowDataBound">
     <Columns>
         <asp:BoundField HeaderText="Facility Type" DataField="FacilityType" ItemStyle-Width="25%" ItemStyle-CssClass="TypeRow" />
@@ -153,8 +150,7 @@
     </Columns>
 </asp:GridView>
 
-<h2 class="ExceptionsReportHeading">Fire Protection Impairments
-</h2>
+<h2 class="ExceptionsReportHeading">Fire Protection Impairments</h2>
 <asp:GridView ID="FireProtection" runat="server" AutoGenerateColumns="false" OnRowDataBound="FireProtection_RowDataBound">
     <Columns>
         <asp:BoundField HeaderText="Facility Type" DataField="FacilityType" ItemStyle-Width="25%" ItemStyle-CssClass="TypeRow" />
@@ -165,7 +161,15 @@
 </asp:GridView>
 
 <h2 class="ExceptionsReportHeading">MSW Inventory Exceptions</h2>
-<asp:GridView ID="gridMSWInventoryExceptions" runat="server" OnRowDataBound="gridMSWInventoryExceptions_RowDataBound">
+<asp:GridView ID="gridMSWInventoryExceptions" runat="server" AutoGenerateColumns="false" OnRowDataBound="gridMSWInventoryExceptions_RowDataBound">
+    <Columns>
+        <asp:BoundField HeaderText="Facility Type" DataField="FacilityType" ItemStyle-Width="16%" ItemStyle-CssClass="TypeRow" />
+        <asp:BoundField HeaderText="Facility" DataField="Facility" ItemStyle-Width="16%" ItemStyle-CssClass="FacilityRow" />
+        <asp:BoundField HeaderText="Limit" DataField="Limit" ItemStyle-Width="16%" ItemStyle-CssClass="TypeRow" />
+        <asp:BoundField HeaderText="Actual Inventory (tons)" DataField="ActualInventory" ItemStyle-Width="16%" ItemStyle-CssClass="FacilityRow" />
+        <asp:BoundField HeaderText="Inventory Min Limit 1.5 days Run (tons)" DataField="InventoryMinLimit" ItemStyle-Width="16%" ItemStyle-CssClass="TypeRow" />
+        <asp:BoundField HeaderText="Inventory Max 90% of Limit (tons)" DataField="InventoryMaxLimit" ItemStyle-Width="16%" ItemStyle-CssClass="FacilityRow" />
+    </Columns>
 </asp:GridView>
 <br />
 <h2 class="ExceptionsReportHeading">Need Access?
@@ -180,8 +184,8 @@
                         <table cellspacing="0" rules="all" border="1" id="ExceptionsReportData_CommentsFacilityTypeData_ctl02_CommentsData" style="border-collapse: collapse;">
                             <tbody>
                                 <tr>
-                                    <td class="FacilityRow" style="width: 20%;"></td>
-                                    <td class="FacilityRow" style="width: 80%;">
+                                    <td class="FacilityRow" style="width: 25%;"></td>
+                                    <td class="FacilityRow" style="width: 75%;">
                                         <b style="text-decoration: underline;">Email:</b>
                                         <a href="mailto:Frontline@Covanta.com">Frontline@Covanta.com</a> requesting to be added to <b><a href="mailto:#DomesticOperationsExceptionsReport@covanta.com">#Domestic Operations Exceptions Report</a></b> distribution group.
                                     </td>

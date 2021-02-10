@@ -198,8 +198,8 @@
                 if (selection !== "" && selection !== "Operational" && selection !== "Decommissioned" && selection !== "Not Applicable")
                     //Show
                 {
-                    document.getElementById(boilerStatusID.replace("Status", "DowntimeRow")).style.display = "block";
-                    document.getElementById(boilerStatusID.replace("Status", "ExpectedRepairDateRow")).style.display = "block";
+                    document.getElementById(boilerStatusID.replace("Status", "DowntimeRow")).style.display = "table-row";
+                    document.getElementById(boilerStatusID.replace("Status", "ExpectedRepairDateRow")).style.display = "table-row";
                 }
                     //Hide
                 else {
@@ -213,7 +213,7 @@
                 //Show or hide Downtime Reason Text based on Status Dropdown Box (Show for 'Unscheduled' or 'Stand-By' if Boiler Status,  Show for Unscheduled TG Outage or Other is Turbine)
                 if ((selection === "Unscheduled Outage") || (selection === "Stand-By") || (selection === "Unscheduled TG Outage") || (selection === "Other"))
                     //Show
-                    document.getElementById(boilerStatusID.replace("Status", "UnscheduledRow")).style.display = "block";
+                    document.getElementById(boilerStatusID.replace("Status", "UnscheduledRow")).style.display = "table-row";
                 else
                     //Hide
                     document.getElementById(boilerStatusID.replace("Status", "UnscheduledRow")).style.display = "none";
@@ -226,7 +226,7 @@
                 //Show
                 {
                     //document.getElementById(boilerStatusID.replace("Status", "ScheduledReasonRow")).style.display = "none";
-                    document.getElementById(boilerStatusID.replace("Status", "ScheduledRow")).style.display = "block";
+                    document.getElementById(boilerStatusID.replace("Status", "ScheduledRow")).style.display = "table-row";
                 }
                 else
                 //Hide
@@ -247,11 +247,11 @@
                 var processedField = document.getElementById(availableID.replace("Available", "ReprocessedRow"));
 
                 if (available.checked) {
-                    hoursField.style.display = "block";
-                    reasonField.style.display = "block";
-                    dateField.style.display = "block";
+                    hoursField.style.display = "table-row";
+                    reasonField.style.display = "table-row";
+                    dateField.style.display = "table-row";
                     if (processedField)
-                        processedField.style.display = "block";
+                        processedField.style.display = "table-row";
                 }
                 else {
                     hoursField.style.display = "none";
@@ -268,8 +268,8 @@
             var explanation = document.getElementById("EnvironmentalExplanationRow");
 
             if (eventsYes.checked) {
-                type.style.display = "block";
-                explanation.style.display = "block";
+                type.style.display = "table-row";
+                explanation.style.display = "table-row";
             }
             else {
                 type.style.display = "none";
@@ -282,7 +282,7 @@
             var explanation = document.getElementById("CemsExplanationRow");
 
             if (eventsYes.checked)
-                type.style.display = explanation.style.display = "block";
+                type.style.display = explanation.style.display = "table-row";
             else
                 type.style.display = explanation.style.display = "none";
         }
@@ -298,8 +298,8 @@
                         dateField.style.display = "none";
                     }
                     else {
-                        field.style.display = "block";
-                        dateField.style.display = "block";
+                        field.style.display = "table-row";
+                        dateField.style.display = "table-row";
                     }
                 }
 
@@ -310,8 +310,8 @@
                         dateField.style.display = "none";
                     }
                     else {
-                        field.style.display = "block";
-                        dateField.style.display = "block";
+                        field.style.display = "table-row";
+                        dateField.style.display = "table-row";
                     }
                 } 
 
@@ -322,8 +322,8 @@
                         dateField.style.display = "none";
                     }
                     else {
-                        field.style.display = "block";
-                        dateField.style.display = "block";
+                        field.style.display = "table-row";
+                        dateField.style.display = "table-row";
                     }
                 }
 
@@ -331,7 +331,7 @@
                     if (checkbox.checked)
                         field.style.display = "none";
                     else
-                        field.style.display = "block";
+                        field.style.display = "table-row";
                 }
             }
         }
@@ -359,9 +359,10 @@
                 <br />
                 The Facility Manager and the Chief Engineer will be notified automatically if the
 			report is not completed by that time.--%>
-                It is the responsibility of the Operations Manager to ensure this report is properly completed by 07:00 EST each day of the week to include weekends and holidays.
+                It is the responsibility of the Operations Manager to ensure this report is properly completed and submitted by 07:00 EST each day of the week to include weekends and holidays.
                 <br/><br/>
-                A delinquency email will be automatically sent to the Facility Manager, Operations Manager, and Sr. Director Operations if the report is not completed by 07:00 EST each day for action.
+                Facilities that fail to timely submit their report will be flagged as “Not Reporting” at the top of the report when it is disseminated at 07:30 EST to senior executives and others on the distribution list.
+                <%--A delinquency email will be automatically sent to the Facility Manager, Operations Manager, and Sr. Director Operations if the report is not completed by 07:00 EST each day for action.--%>
             </h2>
         </div>
         <hr />
@@ -512,6 +513,16 @@
                                     <asp:TextBox ID="PostShredInventory" runat="server" CssClass="NumericField" AutoCompleteType="Disabled"></asp:TextBox>
                                     &nbsp;
                                 <asp:Label ID="PostShredInventoryMessage" runat="server" EnableViewState="False"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr id="MassBurnInventoryRow" runat="server" visible="false">
+                                <td class="left-column">
+                                    <asp:Label ID="MassBurnInventorylabel" runat="server" EnableViewState="False">Mass Burn Inventory</asp:Label>
+                                </td>
+                                <td class="right-column">
+                                    <asp:TextBox ID="MassBurnInventory" runat="server" CssClass="NumericField" AutoCompleteType="Disabled"></asp:TextBox>
+                                    &nbsp;
+                                <asp:Label ID="MassBurnInventoryMessage" runat="server" EnableViewState="False"></asp:Label>
                                 </td>
                             </tr>
                             <span id="Boiler1Input" runat="server">
@@ -1402,6 +1413,10 @@
                                 </span>
 
                                 <tr>
+                                    <td class="table-subheading" colspan="2">Fire Protection Impairments
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td class="left-column">
                                         <asp:Label ID="FireSystemLabel" runat="server" EnableViewState="False">List any Fire Protection Systems out of Service</asp:Label>
                                     </td>
@@ -1421,6 +1436,10 @@
                                         <asp:TextBox ID="FireSystemDate" runat="server" CssClass="DateField"></asp:TextBox>
                                         <asp:CalendarExtender ID="FireSystemDateCalendar" runat="server" TargetControlID="FireSystemDate">
                                         </asp:CalendarExtender>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="table-subheading" colspan="2">Critical Assests in Alarm
                                     </td>
                                 </tr>
                                 <tr>
@@ -1470,6 +1489,7 @@
                                             CssClass="EventTypeField">
                                             <asp:ListItem Value="Reportable">Reportable</asp:ListItem>
                                             <asp:ListItem Value="Reportable Exempt">Reportable Exempt</asp:ListItem>
+                                            <asp:ListItem Value="Data Exclusions">Data Exclusions</asp:ListItem>
                                         </asp:RadioButtonList>
                                     </td>
                                 </tr>
@@ -1502,6 +1522,7 @@
                                             CssClass="EventTypeField">
                                             <asp:ListItem Value="Reportable">Reportable</asp:ListItem>
                                             <asp:ListItem Value="Reportable Exempt">Reportable Exempt</asp:ListItem>
+                                            <asp:ListItem Value="Data Exclusions">Data Exclusions</asp:ListItem>
                                         </asp:RadioButtonList>
                                     </td>
                                 </tr>
@@ -1567,7 +1588,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="table-subheading" colspan="2">Comments
+                                    <td class="table-subheading" colspan="2">Critical Equipment OOS/Lack of Redundancy
                                     </td>
                                 </tr>
                                 <tr>
@@ -1592,43 +1613,43 @@
                                         </asp:CalendarExtender>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr style="display:none;">
                                     <td class="table-subheading" colspan="2">Facility Contact Information
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr style="display:none;">
                                     <td colspan="2" style="text-align: center">If any of the following information is incorrect, please contact <a href="mailto:sdrew@covanta.com?Subject=<%= Facility.SelectedItem.Text %> Contact Information">Scott Drew</a>. <%--Thank you. --%></td>
-                                <tr>
+                                <tr style="display:none;">
                                     <td class="left-column">Facility Manager Name: </td>
                                     <td class="right-column">
                                         <asp:Label ID="FacilityManagerName" runat="server"></asp:Label>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr style="display:none;">
                                     <td class="left-column">Facility Manager User ID: </td>
                                     <td class="right-column">
                                         <asp:Label ID="FacilityManagerUserId" runat="server"></asp:Label>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr style="display:none;">
                                     <td class="left-column">Facility Manager Email Address: </td>
                                     <td class="right-column">
                                         <asp:Label ID="FacilityManagerEmail" runat="server"></asp:Label>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr style="display:none;">
                                     <td class="left-column"><%--Chief Engineer--%>Operations Manager Name: </td>
                                     <td class="right-column">
                                         <asp:Label ID="ChiefEngineerName" runat="server"></asp:Label>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr style="display:none;">
                                     <td class="left-column"><%--Chief Engineer--%>Operations Manager User ID: </td>
                                     <td class="right-column">
                                         <asp:Label ID="ChiefEngineerUserId" runat="server"></asp:Label>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr style="display:none;">
                                     <td class="left-column"><%--Chief Engineer--%>Operations Manager Email Address: </td>
                                     <td class="right-column">
                                         <asp:Label ID="ChiefEngineerEmail" runat="server"></asp:Label>
