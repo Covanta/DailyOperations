@@ -179,8 +179,9 @@
                 showCemsExplanation();
                 showOptionalField('FireSystemCheckBox');
                 showOptionalField('CriticalAssetsCheckBox');
-                showOptionalField('FirstAidCheckBox');
-                showOptionalField('OshaRecordableCheckBox');
+                //showOptionalField('FirstAidCheckBox');
+                //showOptionalField('OshaRecordableCheckBox');
+                showOptionalField('EmployeeSafetyIncidentsCheckBox');
                 showOptionalField('NearMissCheckBox');
                 showOptionalField('ContractorCheckBox');
                 showOptionalField('CommentsCheckBox');
@@ -1539,51 +1540,63 @@
                                     <td class="table-subheading" colspan="2">Health &amp; Safety Events
                                     </td>
                                 </tr>                                
-                                <tr>
+                                <tr style="display:none;">
                                     <td class="left-column">
-                                        <asp:Label ID="OshaRecordableLabel" runat="server" EnableViewState="False">OSHA Recordable</asp:Label>
+                                        <asp:Label ID="OshaRecordableLabel" runat="server" EnableViewState="False" Visible="false">OSHA Recordable</asp:Label>
                                     </td>
                                     <td class="right-column">
                                         <asp:CheckBox ID="OshaRecordableCheckBox" runat="server" onClick="showOptionalField('OshaRecordableCheckBox')"
-                                            Text="None" />
+                                            Text="None"  Visible="false"/>
                                         <br />
                                         <asp:TextBox ID="OshaRecordable" runat="server" CssClass="OptionalField" TextMode="MultiLine"
-                                            AutoCompleteType="Disabled"></asp:TextBox>
+                                            AutoCompleteType="Disabled" Text="" Visible="false"></asp:TextBox>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr style="display:none;">
                                     <td class="left-column">
-                                        <asp:Label ID="FirstAidLabel" runat="server" EnableViewState="False">First Aid</asp:Label>
+                                        <asp:Label ID="FirstAidLabel" runat="server" EnableViewState="False" Visible="false">First Aid</asp:Label>
                                     </td>
                                     <td class="right-column">
                                         <asp:CheckBox ID="FirstAidCheckBox" runat="server" onClick="showOptionalField('FirstAidCheckBox')"
-                                            Text="None" />
+                                            Text="None"  Visible="false"/>
                                         <br />
                                         <asp:TextBox ID="FirstAid" runat="server" CssClass="OptionalField" TextMode="MultiLine"
-                                            AutoCompleteType="Disabled"></asp:TextBox>
+                                            AutoCompleteType="Disabled" Text="" Visible="false"></asp:TextBox>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="left-column">
-                                        <asp:Label ID="NearMissLabel" runat="server" EnableViewState="False">Near Miss</asp:Label>
+                                        <asp:Label ID="EmployeeSafetyIncidentsLabel" runat="server" EnableViewState="False">Employee Safety Incidents</asp:Label>
                                     </td>
                                     <td class="right-column">
-                                        <asp:CheckBox ID="NearMissCheckBox" runat="server" onClick="showOptionalField('NearMissCheckBox')"
+                                        <asp:CheckBox ID="EmployeeSafetyIncidentsCheckBox" runat="server" onClick="showOptionalField('EmployeeSafetyIncidentsCheckBox')"
                                             Text="None" />
                                         <br />
-                                        <asp:TextBox ID="NearMiss" runat="server" CssClass="OptionalField" TextMode="MultiLine"
+                                        <asp:TextBox ID="EmployeeSafetyIncidents" runat="server" CssClass="OptionalField" TextMode="MultiLine"
                                             AutoCompleteType="Disabled"></asp:TextBox>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="left-column">
-                                        <asp:Label ID="ContractorLabel" runat="server" EnableViewState="False">Contractor</asp:Label>
+                                        <asp:Label ID="ContractorLabel" runat="server" EnableViewState="False">Contractor Safety Incidents</asp:Label>
                                     </td>
                                     <td class="right-column">
                                         <asp:CheckBox ID="ContractorCheckBox" runat="server" onClick="showOptionalField('ContractorCheckBox')"
                                             Text="None" />
                                         <br />
                                         <asp:TextBox ID="Contractor" runat="server" CssClass="OptionalField" TextMode="MultiLine"
+                                            AutoCompleteType="Disabled"></asp:TextBox>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="left-column">
+                                        <asp:Label ID="NearMissLabel" runat="server" EnableViewState="False">Serious Near Misses</asp:Label>
+                                    </td>
+                                    <td class="right-column">
+                                        <asp:CheckBox ID="NearMissCheckBox" runat="server" onClick="showOptionalField('NearMissCheckBox')"
+                                            Text="None" />
+                                        <br />
+                                        <asp:TextBox ID="NearMiss" runat="server" CssClass="OptionalField" TextMode="MultiLine"
                                             AutoCompleteType="Disabled"></asp:TextBox>
                                     </td>
                                 </tr>

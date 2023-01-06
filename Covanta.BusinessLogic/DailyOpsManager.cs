@@ -408,6 +408,7 @@ namespace Covanta.BusinessLogic
             string oshaRecordable = "OSHA Recordable";
             string nearMiss = "Near Miss";
             string contractor = "Contractor";
+            string employeeSafetyIncidents = "Employee Safety Incidents";
 
             //FirstAid
             if (dailyOpsData.HealthSafetyFirstAid != string.Empty)
@@ -431,6 +432,12 @@ namespace Covanta.BusinessLogic
             if (dailyOpsData.HealthSafetyContractor != string.Empty)
             {
                 DailyOpsReportableEvent contractorObject = new DailyOpsReportableEvent(contractor, dailyOpsData.HealthSafetyContractor);
+                listDailyOpsReportableEvents.Add(contractorObject);
+            }
+            //Employee Safety Incidents
+            if (dailyOpsData.HealthSafetyEmployeeSafetyIncidents != string.Empty)
+            {
+                DailyOpsReportableEvent contractorObject = new DailyOpsReportableEvent(employeeSafetyIncidents, dailyOpsData.HealthSafetyEmployeeSafetyIncidents);
                 listDailyOpsReportableEvents.Add(contractorObject);
             }
 
@@ -645,7 +652,7 @@ namespace Covanta.BusinessLogic
             //2
             if ((dailyOpsData.OutageTypeTurbGen2 != string.Empty) && (dailyOpsData.OutageTypeTurbGen2 != "Operational"))
             {
-                var dailyOpsTurbGenStatus = new DailyOpsBoilerStatus(dateDataRepresents, faciltyID, 2, dailyOpsData.OutageTypeTurbGen2, dailyOpsData.ExplanationTurbGen2, dailyOpsData.DownTimeTurbGen2, dailyOpsData.TurbGen2ExpectedRepairDate);
+                var dailyOpsTurbGenStatus = new DailyOpsBoilerStatus(dateDataRepresents, faciltyID, 2, dailyOpsData.OutageTypeTurbGen2, dailyOpsData.ExplanationTurbGen2, dailyOpsData.DownTimeTurbGen2, dailyOpsData.TurbGen1ExpectedRepairDate);
                 var completeDowntime = GetCumulativeDowntime(dateDataRepresents, faciltyID, Enums.DowntimeBoilerEnum.DownTimeTurbGen2, ref status);
                 dailyOpsTurbGenStatus.CumulativeDowntime = completeDowntime.CumulativeDowntime;
                 dailyOpsTurbGenStatus.WeekToDate = completeDowntime.WeekToDate;

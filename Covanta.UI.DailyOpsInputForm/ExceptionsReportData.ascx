@@ -187,7 +187,7 @@
                                     <td class="FacilityRow" style="width: 25%;"></td>
                                     <td class="FacilityRow" style="width: 75%;">
                                         <b style="text-decoration: underline;">Email:</b>
-                                        <a href="mailto:Frontline@Covanta.com">Frontline@Covanta.com</a> requesting to be added to <b><a href="mailto:#DomesticOperationsExceptionsReport@covanta.com">#Domestic Operations Exceptions Report</a></b> distribution group.
+                                        <a href="mailto:CSC@Covanta.com">CSC@Covanta.com</a> requesting to be added to <b><a href="mailto:#DomesticOperationsExceptionsReport@covanta.com">#Domestic Operations Exceptions Report</a></b> distribution group.
                                     </td>
                                 </tr>
                             </tbody>

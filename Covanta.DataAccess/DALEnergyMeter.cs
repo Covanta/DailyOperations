@@ -100,126 +100,137 @@ namespace Covanta.DataAccess
         /// <param name="dataArray"></param>
         public void InsertEnergyMeterToSQLServer(object[,] dataArray, string location, string fileName)
         {
-            int arrayLength0 = dataArray.GetUpperBound(0);
-            int arrayLength1 = dataArray.GetUpperBound(1);
-
-            //if a cell is null, then replace it with a spaces
-            for (int i = 0; i < arrayLength0 + 1; i++)
+            try
             {
-                for (int j = 0; j < arrayLength1 + 1; j++)
+                int arrayLength0 = dataArray.GetUpperBound(0);
+                int arrayLength1 = dataArray.GetUpperBound(1);
+
+                //if a cell is null, then replace it with a spaces
+                for (int i = 0; i < arrayLength0 + 1; i++)
                 {
-                    if (dataArray[i, j] == null)
+                    for (int j = 0; j < arrayLength1 + 1; j++)
                     {
-                        dataArray[i, j] = string.Empty;
-                        string a = dataArray[i, j].ToString();
+                        if (dataArray[i, j] == null)
+                        {
+                            dataArray[i, j] = string.Empty;
+                            string a = dataArray[i, j].ToString();
+                        }
+                    }
+                }
+
+                using (SqlConnection connection = new SqlConnection(_dbConnection))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand())
+                    {
+                        for (int i = 0; i < arrayLength0 + 1; i++)
+                        {
+                            //we don't want the title (first row) so don't include it                      
+                            if (dataArray[i, 0].ToString().ToUpper().Substring(0, 4) == "TIME") { continue; }
+
+                            command.Connection = connection;
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.CommandText = "EnergyMeterApp_Insert";
+                            command.Parameters.AddWithValue("@Location", location);
+                            command.Parameters.AddWithValue("FileName", fileName);
+                            
+                            if (fileName.Contains("Files"))
+                            {
+                                fileName = fileName.Replace("Files", "");
+                            }
+                            DateTime dateTimeToUse = parseDateFromFileNameAndTimeField(dataArray, fileName, i);
+                            command.Parameters.AddWithValue("@DateTime1", dateTimeToUse);
+
+                            decimal valueDecimal = 0;
+                            //int valuedInt = 0;
+                            decimal resultDecimal = 0;
+                            //int resultInt = 0;
+
+                            //tryParse fields and throw exception if needed
+
+                            //tryParseIntAndThrowError(dataArray[i, 1].ToString(), "MegaWattHoursDelv", fileName, location);
+                            //tryParseIntAndThrowError(dataArray[i, 2].ToString(), "MegaVARHoursDelv", fileName, location);
+
+                            //02/15/2015 changed these 2 fields above to decimals instead of int
+                            tryParseDecimalAndThrowError(dataArray[i, 1].ToString(), "MegaWattHoursDelv", fileName, location);
+                            tryParseDecimalAndThrowError(dataArray[i, 2].ToString(), "MegaVARHoursDelv", fileName, location);
+
+
+                            tryParseDecimalAndThrowError(dataArray[i, 3].ToString(), "AvgValueMegaWatt", fileName, location);
+                            tryParseDecimalAndThrowError(dataArray[i, 4].ToString(), "AvgValueMegaVAR", fileName, location);
+                            tryParseDecimalAndThrowError(dataArray[i, 5].ToString(), "InstantAvgValueMegaWatt", fileName, location);
+                            tryParseDecimalAndThrowError(dataArray[i, 6].ToString(), "InstantAvgValueMegaVAR", fileName, location);
+
+                            /*
+                            resultInt = int.TryParse(dataArray[i, 1].ToString(), out valuedInt) ? valuedInt : 0;
+                            command.Parameters.AddWithValue("@MegaWattHoursDelv", resultInt);
+                            int megaWattHoursDelvToBeInserted = resultInt;
+
+                            resultInt = int.TryParse(dataArray[i, 2].ToString(), out valuedInt) ? valuedInt : 0;
+                            command.Parameters.AddWithValue("@MegaVARHoursDelv", resultInt);
+                            int megaVARHoursDelvToBeInserted = resultInt;
+                            */
+
+                            //02/15/2015 changed these 2 fields above to decimals instead of int
+
+                            resultDecimal = decimal.TryParse(dataArray[i, 1].ToString(), out valueDecimal) ? valueDecimal : 0;
+                            command.Parameters.AddWithValue("@MegaWattHoursDelv", resultDecimal);
+                            decimal megaWattHoursDelvToBeInserted = resultDecimal;
+
+                            resultDecimal = decimal.TryParse(dataArray[i, 2].ToString(), out valueDecimal) ? valueDecimal : 0;
+                            command.Parameters.AddWithValue("@MegaVARHoursDelv", resultDecimal);
+                            decimal megaVARHoursDelvToBeInserted = resultDecimal;
+
+
+                            resultDecimal = decimal.TryParse(dataArray[i, 3].ToString(), out valueDecimal) ? valueDecimal : 0;
+                            command.Parameters.AddWithValue("@AvgValueMegaWatt", resultDecimal);
+
+                            resultDecimal = decimal.TryParse(dataArray[i, 4].ToString(), out valueDecimal) ? valueDecimal : 0;
+                            command.Parameters.AddWithValue("@AvgValueMegaVAR", resultDecimal);
+
+                            resultDecimal = decimal.TryParse(dataArray[i, 5].ToString(), out valueDecimal) ? valueDecimal : 0;
+                            command.Parameters.AddWithValue("@InstantAvgValueMegaWatt", resultDecimal);
+
+                            resultDecimal = decimal.TryParse(dataArray[i, 6].ToString(), out valueDecimal) ? valueDecimal : 0;
+                            command.Parameters.AddWithValue("@InstantAvgValueMegaVAR", resultDecimal);
+
+                            //Eric Comment out the powerfactor processing
+                            //string powerFactorString1 = dataArray[i, 7].ToString();
+                            //if (powerFactorString1 == "0.0") { powerFactorString1 = "0.0e-1"; }
+                            //if (powerFactorString1.Length < 4)
+                            //{
+                            //    throw new Exception("FileName " + fileName + " contains a bad power factor field.  " + powerFactorString1 + " is not in expected format of 9.99613e-1");
+                            //}
+                            //string powerFactorString2 = powerFactorString1.Substring(0, powerFactorString1.Length - 3);
+                            //decimal powerFactorDecimal = decimal.Parse(powerFactorString2) / 10;
+
+                            command.Parameters.AddWithValue("@PowerFactor", 0.000);
+
+                            //Deltas
+                            command.Parameters.AddWithValue("@MegaWattHoursDelvDelta", DBNull.Value);
+                            command.Parameters.AddWithValue("@MegaVARHoursDelvDelta", DBNull.Value);
+
+                            //If MegaWattHoursDelv = 0 
+                            // or
+                            //If AvgValueMegaVAR = 0
+                            //  Then don't insert the row.
+                            if (megaWattHoursDelvToBeInserted == 0 || megaVARHoursDelvToBeInserted == 0)
+                            {
+                                //dont insert
+                            }
+                            else
+                            {
+                                //insert
+                                command.ExecuteNonQuery();
+                            }
+                            command.Parameters.Clear();
+                        }
                     }
                 }
             }
-
-            using (SqlConnection connection = new SqlConnection(_dbConnection))
+            catch(Exception ex)
             {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand())
-                {
-                    for (int i = 0; i < arrayLength0 + 1; i++)
-                    {
-                        //we don't want the title (first row) so don't include it                      
-                        if (dataArray[i, 0].ToString().ToUpper().Substring(0, 4) == "TIME") { continue; }
-
-                        command.Connection = connection;
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.CommandText = "EnergyMeterApp_Insert";
-                        command.Parameters.AddWithValue("@Location", location);
-                        command.Parameters.AddWithValue("FileName", fileName);
-
-                        DateTime dateTimeToUse = parseDateFromFileNameAndTimeField(dataArray, fileName, i);
-                        command.Parameters.AddWithValue("@DateTime1", dateTimeToUse);
-
-                        decimal valueDecimal = 0;
-                        //int valuedInt = 0;
-                        decimal resultDecimal = 0;
-                        //int resultInt = 0;
-
-                        //tryParse fields and throw exception if needed
-
-                        //tryParseIntAndThrowError(dataArray[i, 1].ToString(), "MegaWattHoursDelv", fileName, location);
-                        //tryParseIntAndThrowError(dataArray[i, 2].ToString(), "MegaVARHoursDelv", fileName, location);
-
-                        //02/15/2015 changed these 2 fields above to decimals instead of int
-                        tryParseDecimalAndThrowError(dataArray[i, 1].ToString(), "MegaWattHoursDelv", fileName, location);
-                        tryParseDecimalAndThrowError(dataArray[i, 2].ToString(), "MegaVARHoursDelv", fileName, location);
-
-
-                        tryParseDecimalAndThrowError(dataArray[i, 3].ToString(), "AvgValueMegaWatt", fileName, location);
-                        tryParseDecimalAndThrowError(dataArray[i, 4].ToString(), "AvgValueMegaVAR", fileName, location);
-                        tryParseDecimalAndThrowError(dataArray[i, 5].ToString(), "InstantAvgValueMegaWatt", fileName, location);
-                        tryParseDecimalAndThrowError(dataArray[i, 6].ToString(), "InstantAvgValueMegaVAR", fileName, location);
-
-                        /*
-                        resultInt = int.TryParse(dataArray[i, 1].ToString(), out valuedInt) ? valuedInt : 0;
-                        command.Parameters.AddWithValue("@MegaWattHoursDelv", resultInt);
-                        int megaWattHoursDelvToBeInserted = resultInt;
-
-                        resultInt = int.TryParse(dataArray[i, 2].ToString(), out valuedInt) ? valuedInt : 0;
-                        command.Parameters.AddWithValue("@MegaVARHoursDelv", resultInt);
-                        int megaVARHoursDelvToBeInserted = resultInt;
-                        */
-
-                        //02/15/2015 changed these 2 fields above to decimals instead of int
-
-                        resultDecimal = decimal.TryParse(dataArray[i, 1].ToString(), out valueDecimal) ? valueDecimal : 0;
-                        command.Parameters.AddWithValue("@MegaWattHoursDelv", resultDecimal);
-                        decimal megaWattHoursDelvToBeInserted = resultDecimal;
-
-                        resultDecimal = decimal.TryParse(dataArray[i, 2].ToString(), out valueDecimal) ? valueDecimal : 0;
-                        command.Parameters.AddWithValue("@MegaVARHoursDelv", resultDecimal);
-                        decimal megaVARHoursDelvToBeInserted = resultDecimal;
-
-
-                        resultDecimal = decimal.TryParse(dataArray[i, 3].ToString(), out valueDecimal) ? valueDecimal : 0;
-                        command.Parameters.AddWithValue("@AvgValueMegaWatt", resultDecimal);
-
-                        resultDecimal = decimal.TryParse(dataArray[i, 4].ToString(), out valueDecimal) ? valueDecimal : 0;
-                        command.Parameters.AddWithValue("@AvgValueMegaVAR", resultDecimal);
-
-                        resultDecimal = decimal.TryParse(dataArray[i, 5].ToString(), out valueDecimal) ? valueDecimal : 0;
-                        command.Parameters.AddWithValue("@InstantAvgValueMegaWatt", resultDecimal);
-
-                        resultDecimal = decimal.TryParse(dataArray[i, 6].ToString(), out valueDecimal) ? valueDecimal : 0;
-                        command.Parameters.AddWithValue("@InstantAvgValueMegaVAR", resultDecimal);
-
-                        //Eric Comment out the powerfactor processing
-                        //string powerFactorString1 = dataArray[i, 7].ToString();
-                        //if (powerFactorString1 == "0.0") { powerFactorString1 = "0.0e-1"; }
-                        //if (powerFactorString1.Length < 4)
-                        //{
-                        //    throw new Exception("FileName " + fileName + " contains a bad power factor field.  " + powerFactorString1 + " is not in expected format of 9.99613e-1");
-                        //}
-                        //string powerFactorString2 = powerFactorString1.Substring(0, powerFactorString1.Length - 3);
-                        //decimal powerFactorDecimal = decimal.Parse(powerFactorString2) / 10;
-
-                        command.Parameters.AddWithValue("@PowerFactor", 0.000);
-
-                        //Deltas
-                        command.Parameters.AddWithValue("@MegaWattHoursDelvDelta", DBNull.Value);
-                        command.Parameters.AddWithValue("@MegaVARHoursDelvDelta", DBNull.Value);
-
-                        //If MegaWattHoursDelv = 0 
-                        // or
-                        //If AvgValueMegaVAR = 0
-                        //  Then don't insert the row.
-                        if (megaWattHoursDelvToBeInserted == 0 || megaVARHoursDelvToBeInserted == 0)
-                        {
-                            //dont insert
-                        }
-                        else
-                        {
-                            //insert
-                            command.ExecuteNonQuery();                            
-                        }
-                        command.Parameters.Clear();
-                    }
-                }
+                string errorInFile = fileName;
             }
         }
 
@@ -352,14 +363,16 @@ namespace Covanta.DataAccess
             DateTime dateTimeToUse = DateTime.Today;
 
             // check to see if the time part is valid from the file
-            if (DateTime.TryParse(dataArray[i, 0].ToString(), out result) == false)
+            String timeStamp = dataArray[i, 0].ToString();
+            timeStamp = timeStamp.Substring(timeStamp.Length - 8);
+            if (DateTime.TryParse(timeStamp, out result) == false)
             {
                 throw new Exception("FileName " + fileName + " contains a bad date field.  " + dataArray[i, 0].ToString() + " is not a valid date and time");
             }
             timeToUse = result;
 
             string datePart = fileName.Substring(0, 4) + "-" + fileName.Substring(4, 2) + "-" + fileName.Substring(6, 2);
-            string timePart = dataArray[i, 0].ToString();
+            string timePart = timeStamp;
 
             string timeToUseHour = timeToUse.Hour.ToString();
             string timeToUseMinute = timeToUse.Minute.ToString();
@@ -400,7 +413,7 @@ namespace Covanta.DataAccess
         private void tryParseDecimalAndThrowError(string value, string field, string file, string location)
         {
             decimal result = 0;
-            if (decimal.TryParse(value, out result) == false)
+            if (!string.IsNullOrEmpty(value) && decimal.TryParse(value, out result) == false)
             {
                 throw new Exception("FileName " + file + " contains a bad field.  " + field + " is not a valid decimal.  Location is " + location);
             }

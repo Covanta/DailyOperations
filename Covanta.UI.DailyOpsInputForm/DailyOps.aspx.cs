@@ -400,6 +400,8 @@ namespace Covanta.UI.DailyOpsInputForm
             //PeopleSoftCodeHint.Text = "Hint:  " + Facility.SelectedValue;
             PeopleSoftCodeHint.Text = "Hint:  If this is " + Facility.SelectedItem + ".  PeolpleSoft Code is " + Facility.SelectedValue;
             PeopleSoftCodeHint.ForeColor = Color.Red;
+
+            PeopleSoftCode.Text = Facility.SelectedValue;
         }
 
         /// <summary>
@@ -752,11 +754,17 @@ namespace Covanta.UI.DailyOpsInputForm
             OshaRecordable.Text = data.HealthSafetyOSHAReportable;
             OshaRecordableCheckBox.Checked = string.IsNullOrEmpty(OshaRecordable.Text.Trim());
 
+            EmployeeSafetyIncidents.Text = data.HealthSafetyEmployeeSafetyIncidents;
+            EmployeeSafetyIncidentsCheckBox.Checked = string.IsNullOrEmpty(EmployeeSafetyIncidents.Text.Trim());            
+
             NearMiss.Text = data.HealthSafetyNearMiss;
             NearMissCheckBox.Checked = string.IsNullOrEmpty(NearMiss.Text.Trim());
 
             Contractor.Text = data.HealthSafetyContractor;
             ContractorCheckBox.Checked = string.IsNullOrEmpty(Contractor.Text.Trim());
+
+            EmployeeSafetyIncidents.Text = data.HealthSafetyEmployeeSafetyIncidents;
+            EmployeeSafetyIncidentsCheckBox.Checked = string.IsNullOrEmpty(EmployeeSafetyIncidents.Text.Trim());
 
             Comments.Text = data.Comments;
             CommentsCheckBox.Checked = string.IsNullOrEmpty(Comments.Text.Trim());
@@ -1082,6 +1090,7 @@ namespace Covanta.UI.DailyOpsInputForm
             string osha = getOptionalFieldValue(OshaRecordable, OshaRecordableCheckBox);
             string nearMiss = getOptionalFieldValue(NearMiss, NearMissCheckBox);
             string contractor = getOptionalFieldValue(Contractor, ContractorCheckBox);
+            string employeeSafetyIncidents = getOptionalFieldValue(EmployeeSafetyIncidents, EmployeeSafetyIncidentsCheckBox);
 
             string comments = getOptionalFieldValue(Comments, CommentsCheckBox);
 
@@ -1183,6 +1192,7 @@ namespace Covanta.UI.DailyOpsInputForm
                     osha,
                     nearMiss,
                     contractor,
+                    employeeSafetyIncidents,
                     comments,
                     userID,
                     pitInventory,
@@ -1993,7 +2003,7 @@ namespace Covanta.UI.DailyOpsInputForm
         /// <returns>whether the control is clearable</returns>
         private static bool isClearableField(Control c)
         {
-            return (c is DropDownList && !c.ID.Equals("Facility")) || (c is TextBox && !c.ID.Equals("ReportingDate") & !c.ID.Equals("UserName")) ||
+            return (c is DropDownList && !c.ID.Equals("Facility")) || (c is TextBox && !c.ID.Equals("ReportingDate") & !c.ID.Equals("UserName") & !c.ID.Equals("PeopleSoftCode")) ||
                 (c is RadioButtonList) || (c is CheckBox);
         }
 

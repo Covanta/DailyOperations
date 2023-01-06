@@ -115,7 +115,7 @@ namespace Covanta.Entities
                          string fireSystemOutOfService, DateTime fireSystemOutOfServiceExpectedBackOnlineDate, string criticalAssetsInAlarm,
                          bool isEnvironmentalEvents, string environmentalEventsType, string environmentalEventsExplanation,
                          bool isCEMSEvents, string cemsEventsType, string cemsEventsExplanation,
-                         string healthSafetyFirstAid, string healthSafetyOSHAReportable, string healthSafetyNearMiss, string healthSafetyContractor,
+                         string healthSafetyFirstAid, string healthSafetyOSHAReportable, string healthSafetyNearMiss, string healthSafetyContractor, string healthSafetyEmployeeSafetyIncidents,
                          string comments, string userRowCreated, decimal pitInventory, DateTime criticalAssetsExpectedBackOnlineDate, 
                          DateTime criticalEquipmentOOSExpectedBackOnlineDate, decimal preShredInventory, decimal postShredInventory, decimal massBurnInventory)
         {
@@ -213,6 +213,7 @@ namespace Covanta.Entities
             HealthSafetyOSHAReportable = healthSafetyOSHAReportable;
             HealthSafetyNearMiss = healthSafetyNearMiss;
             HealthSafetyContractor = healthSafetyContractor;
+            HealthSafetyEmployeeSafetyIncidents = healthSafetyEmployeeSafetyIncidents;
 
             Comments = comments;
             UserRowCreated = userRowCreated;
@@ -351,6 +352,7 @@ namespace Covanta.Entities
         public string HealthSafetyOSHAReportable { get; set; }
         public string HealthSafetyNearMiss { get; set; }
         public string HealthSafetyContractor { get; set; }
+        public string HealthSafetyEmployeeSafetyIncidents { get; set; }
 
         public string Comments { get; set; }
 

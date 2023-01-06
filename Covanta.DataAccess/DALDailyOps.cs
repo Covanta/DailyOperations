@@ -822,6 +822,7 @@ namespace Covanta.DataAccess
                         command.Parameters.AddWithValue("@HealthSafetyOSHAReportable", data.HealthSafetyOSHAReportable);
                         command.Parameters.AddWithValue("@HealthSafetyNearMiss", data.HealthSafetyNearMiss);
                         command.Parameters.AddWithValue("@HealthSafetyContractor", data.HealthSafetyContractor);
+                        command.Parameters.AddWithValue("@HealthSafetyEmployeeSafetyIncidents", data.HealthSafetyEmployeeSafetyIncidents);
 
 
                         command.Parameters.AddWithValue("@Comments", data.Comments);
@@ -1149,6 +1150,7 @@ namespace Covanta.DataAccess
             string healthSafetyOSHAReportable = bindObj.ToStringValue("HealthSafetyOSHAReportable");
             string healthSafetyNearMiss = bindObj.ToStringValue("HealthSafetyNearMiss");
             string healthSafetyContractor = bindObj.ToStringValue("HealthSafetyContractor");
+            string healthSafetyEmployeeSafetyIncidents = bindObj.ToStringValue("HealthSafetyEmployeeSafetyIncidents");
 
             string comments = bindObj.ToStringValue("Comments");
             string userRowCreated = bindObj.ToStringValue("UserRowCreated");
@@ -1188,7 +1190,7 @@ namespace Covanta.DataAccess
                 fireSystemOutOfService, fireSystemOutOfServiceExpectedBackOnlineDate, criticalAssetsInAlarm,
                 isEnvironmentalEvents, environmentalEventsType, environmentalEventsExplanation,
                 isCEMSEvents, cemsEventsType, cemsEventsExplanation,
-                healthSafetyFirstAid, healthSafetyOSHAReportable, healthSafetyNearMiss, healthSafetyContractor,
+                healthSafetyFirstAid, healthSafetyOSHAReportable, healthSafetyNearMiss, healthSafetyContractor, healthSafetyEmployeeSafetyIncidents,
                 comments, userRowCreated, pitInventory, CriticalAssetsExpectedBackOnlineDate, CriticalEquipmentOOSExpectedBackOnlineDate, preShredInventory, 
                 postShredInventory, massBurnInventory);
 
@@ -1494,6 +1496,7 @@ namespace Covanta.DataAccess
                 string healthSafetyOSHAReportable = bindObj.ToStringValue("HealthSafetyOSHAReportable");
                 string healthSafetyNearMiss = bindObj.ToStringValue("HealthSafetyNearMiss");
                 string healthSafetyContractor = bindObj.ToStringValue("HealthSafetyContractor");
+                string healthSafetyEmployeeSafetyIncidents = bindObj.ToStringValue("HealthSafetyEmployeeSafetyIncidents");
 
                 string comments = bindObj.ToStringValue("Comments");
                 string userRowCreated = bindObj.ToStringValue("UserRowCreated");
@@ -1525,7 +1528,7 @@ namespace Covanta.DataAccess
                     fireSystemOutOfService, fireSystemOutOfServiceExpectedBackOnlineDate, criticalAssetsInAlarm,
                     isEnvironmentalEvents, environmentalEventsType, environmentalEventsExplanation,
                     isCEMSEvents, cemsEventsType, cemsEventsExplanation,
-                    healthSafetyFirstAid, healthSafetyOSHAReportable, healthSafetyNearMiss, healthSafetyContractor,
+                    healthSafetyFirstAid, healthSafetyOSHAReportable, healthSafetyNearMiss, healthSafetyContractor, healthSafetyEmployeeSafetyIncidents,
                     comments, userRowCreated, pitInventory, CriticalAssetsExpectedBackOnlineDate, CriticalEquipmentOOSExpectedBackOnlineDate, preShredInventory, 
                     postShredInventory, massBurnInventory);
 

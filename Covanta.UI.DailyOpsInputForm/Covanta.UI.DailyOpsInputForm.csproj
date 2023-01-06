@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Covanta.UI.DailyOpsInputForm</RootNamespace>
     <AssemblyName>Covanta.UI.DailyOpsInputForm</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
@@ -40,6 +40,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -48,10 +49,15 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AjaxControlToolkit">
       <HintPath>..\Covanta.Common\DLLs\3.5\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Covanta.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Covanta.Common\bin\Debug\Covanta.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -147,10 +153,6 @@
     <ProjectReference Include="..\Covanta.BusinessLogic\Covanta.BusinessLogic.csproj">
       <Project>{EE0216A3-5DDF-40A4-A94E-95002E1C86B1}</Project>
       <Name>Covanta.BusinessLogic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Covanta.Common\Covanta.Common.csproj">
-      <Project>{50A91DA4-917C-473B-9385-3B4B23A9715D}</Project>
-      <Name>Covanta.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Covanta.Entities\Covanta.Entities.csproj">
       <Project>{54dc44d8-eb32-4e1e-ac02-b1d758a95e88}</Project>

@@ -2308,31 +2308,31 @@ namespace Covanta.UI.DailyOpsInputForm {
         protected global::System.Web.UI.WebControls.TextBox FirstAid;
         
         /// <summary>
-        /// NearMissLabel control.
+        /// EmployeeSafetyIncidentsLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label NearMissLabel;
+        protected global::System.Web.UI.WebControls.Label EmployeeSafetyIncidentsLabel;
         
         /// <summary>
-        /// NearMissCheckBox control.
+        /// EmployeeSafetyIncidentsCheckBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox NearMissCheckBox;
+        protected global::System.Web.UI.WebControls.CheckBox EmployeeSafetyIncidentsCheckBox;
         
         /// <summary>
-        /// NearMiss control.
+        /// EmployeeSafetyIncidents control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox NearMiss;
+        protected global::System.Web.UI.WebControls.TextBox EmployeeSafetyIncidents;
         
         /// <summary>
         /// ContractorLabel control.
@@ -2360,6 +2360,33 @@ namespace Covanta.UI.DailyOpsInputForm {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Contractor;
+        
+        /// <summary>
+        /// NearMissLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label NearMissLabel;
+        
+        /// <summary>
+        /// NearMissCheckBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox NearMissCheckBox;
+        
+        /// <summary>
+        /// NearMiss control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox NearMiss;
         
         /// <summary>
         /// CommentsLabel control.
