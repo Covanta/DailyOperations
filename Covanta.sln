@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1525
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLogic", "BusinessLogic", "{81012864-A9D6-4988-901F-E5AAE8AF0EC1}"
 EndProject
@@ -93,13 +93,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Covanta.UI.EnergyMeterETL",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Covanta.UI.EnergyMeterFTP", "Covanta.UI.EnergyMeterFTP\Covanta.UI.EnergyMeterFTP.csproj", "{4284D582-CC81-4154-BD03-A706D4C2B28A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CovantaWebForms", "CovantaWebForms", "{34A26743-F196-445B-8145-34DFE988E188}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CovantaWebForms", "CovantaWebForms\CovantaWebForms.csproj", "{0B80D893-781B-46C2-B5E2-567A214D1113}"
+EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 1
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://covanta.visualstudio.com/defaultcollection
-		SccLocalPath0 = .
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -449,6 +447,18 @@ Global
 		{4284D582-CC81-4154-BD03-A706D4C2B28A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{4284D582-CC81-4154-BD03-A706D4C2B28A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{4284D582-CC81-4154-BD03-A706D4C2B28A}.Release|x86.ActiveCfg = Release|Any CPU
+		{0B80D893-781B-46C2-B5E2-567A214D1113}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B80D893-781B-46C2-B5E2-567A214D1113}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B80D893-781B-46C2-B5E2-567A214D1113}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0B80D893-781B-46C2-B5E2-567A214D1113}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0B80D893-781B-46C2-B5E2-567A214D1113}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0B80D893-781B-46C2-B5E2-567A214D1113}.Debug|x86.Build.0 = Debug|Any CPU
+		{0B80D893-781B-46C2-B5E2-567A214D1113}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B80D893-781B-46C2-B5E2-567A214D1113}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B80D893-781B-46C2-B5E2-567A214D1113}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0B80D893-781B-46C2-B5E2-567A214D1113}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0B80D893-781B-46C2-B5E2-567A214D1113}.Release|x86.ActiveCfg = Release|Any CPU
+		{0B80D893-781B-46C2-B5E2-567A214D1113}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -491,6 +501,10 @@ Global
 		{B848A667-757C-455C-87B1-9B48FB1EA92F} = {D40CCE58-5B5C-4538-82E2-C733A51718F0}
 		{B7619F2B-2F83-4E15-8085-2AA307E1BA17} = {D40CCE58-5B5C-4538-82E2-C733A51718F0}
 		{4284D582-CC81-4154-BD03-A706D4C2B28A} = {D40CCE58-5B5C-4538-82E2-C733A51718F0}
+		{0B80D893-781B-46C2-B5E2-567A214D1113} = {34A26743-F196-445B-8145-34DFE988E188}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0042B1FD-108E-4EE5-826D-476373E9BAD2}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Covanta.vsmdi
