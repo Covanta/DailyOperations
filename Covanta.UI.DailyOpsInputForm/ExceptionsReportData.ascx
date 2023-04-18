@@ -105,7 +105,7 @@
     <Columns>
         <asp:BoundField HeaderText="Facility Type" DataField="FacilityType" HeaderStyle-Width="11%" ItemStyle-CssClass="TypeRow" />
         <asp:BoundField HeaderText="Facility" DataField="FacilityDescription" ItemStyle-Width="11%" ItemStyle-CssClass="FacilityRow" />
-        <asp:BoundField HeaderText="Boiler" DataField="BoilerNumber" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
+        <asp:BoundField HeaderText="Turbine" DataField="BoilerNumber" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
         <asp:BoundField HeaderText="Status" DataField="Status" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
         <asp:BoundField HeaderText="Current Event Downtime (Hrs)" DataField="Downtime" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
         <asp:BoundField HeaderText="Current Event Explanation" DataField="UnscheduledOutageExplanation" ItemStyle-Width="11%" ItemStyle-CssClass="SubFacilityRow" />
