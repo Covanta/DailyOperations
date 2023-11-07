@@ -652,7 +652,9 @@ namespace Covanta.BusinessLogic
             //2
             if ((dailyOpsData.OutageTypeTurbGen2 != string.Empty) && (dailyOpsData.OutageTypeTurbGen2 != "Operational"))
             {
-                var dailyOpsTurbGenStatus = new DailyOpsBoilerStatus(dateDataRepresents, faciltyID, 2, dailyOpsData.OutageTypeTurbGen2, dailyOpsData.ExplanationTurbGen2, dailyOpsData.DownTimeTurbGen2, dailyOpsData.TurbGen1ExpectedRepairDate);
+                /* CL 2023-11-07 turbine1 return to service date was assigned to turbine 2
+                var dailyOpsTurbGenStatus = new DailyOpsBoilerStatus(dateDataRepresents, faciltyID, 2, dailyOpsData.OutageTypeTurbGen2, dailyOpsData.ExplanationTurbGen2, dailyOpsData.DownTimeTurbGen2, dailyOpsData.TurbGen1ExpectedRepairDate);*/
+                var dailyOpsTurbGenStatus = new DailyOpsBoilerStatus(dateDataRepresents, faciltyID, 2, dailyOpsData.OutageTypeTurbGen2, dailyOpsData.ExplanationTurbGen2, dailyOpsData.DownTimeTurbGen2, dailyOpsData.TurbGen2ExpectedRepairDate);
                 var completeDowntime = GetCumulativeDowntime(dateDataRepresents, faciltyID, Enums.DowntimeBoilerEnum.DownTimeTurbGen2, ref status);
                 dailyOpsTurbGenStatus.CumulativeDowntime = completeDowntime.CumulativeDowntime;
                 dailyOpsTurbGenStatus.WeekToDate = completeDowntime.WeekToDate;
