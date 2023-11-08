@@ -1680,6 +1680,9 @@
                         <div id="Buttons">
                             <asp:Button ID="SubmitButton" runat="server" Text="Submit Operation Report" OnClick="SubmitButton_Click" />
                             <asp:Button ID="ResetButton" runat="server" Text="Reset" OnClick="ResetButton_Click" />
+                            <%-- RITM1026096 C. Link 2023-11-08 Add URL jump button for End of Shift Report to open in new window --%>
+                            <asp:LinkButton ID="EndOfShiftReportButton" runat="server" OnClientClick="window.open('https://forms.office.com/Pages/ResponsePage.aspx?id=C9mrSgl6F0qwTVLz9qj6sD4DTFx063tEm2Wz0QuW02dUMDJDTzhCNEwzV0FORVYwVFhDNDVISE9FTSQlQCN0PWcu'); return false;" Text="End of Shift Report" />
+
                         </div>
                     </div>
                     <div id="ReportingDatesMissingPrompt" class="Prompt" runat="server" visible="false">
