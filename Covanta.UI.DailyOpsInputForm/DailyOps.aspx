@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head" runat="server">
-    <title>Covanta WtE Operations Morning Report</title>
+    <title>Reworld TTF Operations Morning Report</title>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10"/>
     <style type="text/css">
         * {
@@ -341,10 +341,10 @@
         <asp:HiddenField ID="LastReportingDate" runat="server" Visible="False" />
         <asp:ToolkitScriptManager ID="ToolkitScriptManager" runat="server">
         </asp:ToolkitScriptManager>
-        // RITM1026096 C.Link 2023-11-08 Add End of shift report link to the header.
+        <!--// RITM1026096 C.Link 2023-11-08 Add End of shift report link to the header.-->
         <div>
-            <h1 style="position: relative;">Covanta Global Operations Exceptions Report
-                <%--Covanta WtE Operations Morning Report - Electronic Form--%>
+            <h1 style="position: relative;">Reworld TTF Operations Exceptions Report
+                <%--Reworld TTF Operations Morning Report - Electronic Form--%>
                 <div style="position: absolute; top: 0; right: 0; border: 1px solid black; padding: 10px;">
                     <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=C9mrSgl6F0qwTVLz9qj6sD4DTFx063tEm2Wz0QuW02dUMDJDTzhCNEwzV0FORVYwVFhDNDVISE9FTSQlQCN0PWcu" target="_blank" style="color: black; text-decoration: none;">End of Shift Report</a>
                 </div>
@@ -1479,7 +1479,7 @@
                                     <td class="left-column">
                                         <asp:Label ID="EnvironmentalEventsLabel" runat="server" EnableViewState="False">Were there any environmental events?</asp:Label>
                                     </td>
-                                    /*RITM1026096 C. Link 2023-11-08 Add button for conditional link to End of Shift Report if user selects Yes*/
+                                    <!--RITM1026096 C. Link 2023-11-08 Add button for conditional link to End of Shift Report if user selects Yes -->
                                     <td class="right-column">
                                         <asp:RadioButtonList ID="EnvironmentalEvents" runat="server" CssClass="YesNoField"
                                             RepeatDirection="Horizontal" AutoPostBack="True" 
@@ -1487,9 +1487,8 @@
                                             <asp:ListItem Value="True">Yes</asp:ListItem>
                                             <asp:ListItem Value="False">No</asp:ListItem>
                                         </asp:RadioButtonList>
-                                        <asp:LinkButton ID="EndOfShiftReportButton" runat="server" Text="End of Shift Report"
-                                            OnClientClick="if (!confirm('Are you sure you want to end the shift and fill the report?')) return false; window.open('https://forms.office.com/Pages/ResponsePage.aspx?id=C9mrSgl6F0qwTVLz9qj6sD4DTFx063tEm2Wz0QuW02dUMDJDTzhCNEwzV0FORVYwVFhDNDVISE9FTSQlQCN0PWcu'); return false;"
-                                            Visible="False" />
+                                        <asp:Button ID="EndOfShiftReportButtonA"  runat="server" OnClientClick="window.open('https://forms.office.com/Pages/ResponsePage.aspx?id=C9mrSgl6F0qwTVLz9qj6sD4DTFx063tEm2Wz0QuW02dUMDJDTzhCNEwzV0FORVYwVFhDNDVISE9FTSQlQCN0PWcu'); return false;" Visible="false" Text="End of Shift Report" />
+
                                     </td>
                                     
                                 </tr>
@@ -1515,14 +1514,20 @@
                                             TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
                                     </td>
                                 </tr>
-                                <td class="right-column">
-                                    <asp:RadioButtonList ID="CemsEvents" runat="server" CssClass="YesNoField" RepeatDirection="Horizontal" AutoPostBack="True" OnSelectedIndexChanged="CemsEvents_SelectedIndexChanged">
-                                        <asp:ListItem Value="True">Yes</asp:ListItem>
-                                        <asp:ListItem Value="False">No</asp:ListItem>
-                                    </asp:RadioButtonList>
-                                    <asp:Button ID="EndOfShiftReportButton" runat="server" Text="End of Shift Report" OnClientClick="openEndOfShiftReport(); return false;" Visible="False" />
-                                </td>
-                                //RITM1026096 C. Link 2023-11-08 Add button for conditional link to End of Shift Report if user selects Yes                                
+                                <tr>
+                                    <td class="left-column">
+                                        <asp:Label ID="CemsEventsLabel" runat="server" EnableViewState="False">Were there any CEMS events?</asp:Label>
+                                    </td>
+                                    <td class="right-column">
+                                        <asp:RadioButtonList ID="CemsEvents" runat="server" CssClass="YesNoField" RepeatDirection="Horizontal" AutoPostBack="True" OnSelectedIndexChanged="CemsEvents_SelectedIndexChanged">
+                                            <asp:ListItem Value="True">Yes</asp:ListItem>
+                                            <asp:ListItem Value="False">No</asp:ListItem>
+                                        </asp:RadioButtonList>
+                                        <asp:Button ID="EndOfShiftReportButtonB" runat="server" OnClientClick="window.open('https://forms.office.com/Pages/ResponsePage.aspx?id=C9mrSgl6F0qwTVLz9qj6sD4DTFx063tEm2Wz0QuW02dUMDJDTzhCNEwzV0FORVYwVFhDNDVISE9FTSQlQCN0PWcu'); return false;" Visible="false" Text="End of Shift Report" />
+
+                                    </td>
+                                </tr>
+                                <!--RITM1026096 C. Link 2023-11-08 Add button for conditional link to End of Shift Report if user selects Yes                                -->
                                 <tr id="CemsTypeRow">
                                     <td class="left-column">
                                         <asp:Label ID="CemsEventTypeLabel" runat="server" EnableViewState="False">What type of CEMS event was it?</asp:Label>
@@ -1690,7 +1695,7 @@
                             <asp:Button ID="SubmitButton" runat="server" Text="Submit Operation Report" OnClick="SubmitButton_Click" />
                             <asp:Button ID="ResetButton" runat="server" Text="Reset" OnClick="ResetButton_Click" />
                             <%-- RITM1026096 C. Link 2023-11-08 Add URL jump button for End of Shift Report to open in new window --%>
-                            <asp:LinkButton ID="EndOfShiftReportButton" runat="server" OnClientClick="window.open('https://forms.office.com/Pages/ResponsePage.aspx?id=C9mrSgl6F0qwTVLz9qj6sD4DTFx063tEm2Wz0QuW02dUMDJDTzhCNEwzV0FORVYwVFhDNDVISE9FTSQlQCN0PWcu'); return false;" Text="End of Shift Report" />
+                            <asp:Button ID="EndOfShiftReportButton" runat="server" OnClientClick="window.open('https://forms.office.com/Pages/ResponsePage.aspx?id=C9mrSgl6F0qwTVLz9qj6sD4DTFx063tEm2Wz0QuW02dUMDJDTzhCNEwzV0FORVYwVFhDNDVISE9FTSQlQCN0PWcu'); return false;" Text="End of Shift Report" />
 
                         </div>
                     </div>
@@ -1731,3 +1736,4 @@
     </script>
 </body>
 </html>
+<!-- -->

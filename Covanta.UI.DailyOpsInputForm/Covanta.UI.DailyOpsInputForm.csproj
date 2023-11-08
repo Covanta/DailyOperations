@@ -86,7 +86,6 @@
     <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="Scripts\opsscript2.js" />
     <Content Include="Scripts\opsscripts.js" />
-    <Content Include="Scripts\opsendofshift.js" />
     <Content Include="SummaryReport.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
