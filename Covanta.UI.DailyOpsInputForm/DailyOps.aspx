@@ -341,11 +341,16 @@
         <asp:HiddenField ID="LastReportingDate" runat="server" Visible="False" />
         <asp:ToolkitScriptManager ID="ToolkitScriptManager" runat="server">
         </asp:ToolkitScriptManager>
+        // RITM1026096 C.Link 2023-11-08 Add End of shift report link to the header.
         <div>
-            <h1>Covanta Global Operations Exceptions Report
+            <h1 style="position: relative;">Covanta Global Operations Exceptions Report
                 <%--Covanta WtE Operations Morning Report - Electronic Form--%>
+                <div style="position: absolute; top: 0; right: 0; border: 1px solid black; padding: 10px;">
+                    <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=C9mrSgl6F0qwTVLz9qj6sD4DTFx063tEm2Wz0QuW02dUMDJDTzhCNEwzV0FORVYwVFhDNDVISE9FTSQlQCN0PWcu" target="_blank" style="color: black; text-decoration: none;">End of Shift Report</a>
+                </div>
             </h1>
             <h2 style="color:blue"> Please use Google Chrome for best user experience</h2>
+            
             <div id="NavigationButtonDiv">
                 <asp:Button ID="ExceptionsReportButton" runat="server" Text="View Exceptions Report"
                     OnClick="ExceptionsReportButton_Click" />
@@ -353,6 +358,7 @@
                 <asp:Button ID="MassUpdateButton" runat="server" Text="Mass Update" OnClick="MassUpdateButton_Click" />
             </div>
         </div>
+        
         <hr />
         <div>
             <h2><%--This Operation's Report must be completed DAILY,<br />
