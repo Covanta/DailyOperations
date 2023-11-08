@@ -86,6 +86,8 @@
     <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="Scripts\opsscript2.js" />
     <Content Include="Scripts\opsscripts.js" />
+    // RITM1026096 C. Link 2023-11-08 Add button for conditional link to End of Shift Report if user selects Yes
+    <Content Include="Scripts\opsendofshift.js" />
     <Content Include="SummaryReport.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
