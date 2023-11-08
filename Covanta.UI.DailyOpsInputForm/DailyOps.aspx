@@ -1473,13 +1473,19 @@
                                     <td class="left-column">
                                         <asp:Label ID="EnvironmentalEventsLabel" runat="server" EnableViewState="False">Were there any environmental events?</asp:Label>
                                     </td>
+                                    /*RITM1026096 C. Link 2023-11-08 Add button for conditional link to End of Shift Report if user selects Yes*/
                                     <td class="right-column">
                                         <asp:RadioButtonList ID="EnvironmentalEvents" runat="server" CssClass="YesNoField"
-                                            RepeatDirection="Horizontal">
-                                            <asp:ListItem onClick="showEnvironmentalExplanation()" Value="True">Yes</asp:ListItem>
-                                            <asp:ListItem onClick="showEnvironmentalExplanation()" Value="False">No</asp:ListItem>
+                                            RepeatDirection="Horizontal" AutoPostBack="True" 
+                                            OnSelectedIndexChanged="EnvironmentalEvents_SelectedIndexChanged">
+                                            <asp:ListItem Value="True">Yes</asp:ListItem>
+                                            <asp:ListItem Value="False">No</asp:ListItem>
                                         </asp:RadioButtonList>
+                                        <asp:LinkButton ID="EndOfShiftReportButton" runat="server" Text="End of Shift Report"
+                                            OnClientClick="if (!confirm('Are you sure you want to end the shift and fill the report?')) return false; window.open('https://forms.office.com/Pages/ResponsePage.aspx?id=C9mrSgl6F0qwTVLz9qj6sD4DTFx063tEm2Wz0QuW02dUMDJDTzhCNEwzV0FORVYwVFhDNDVISE9FTSQlQCN0PWcu'); return false;"
+                                            Visible="False" />
                                     </td>
+                                    
                                 </tr>
                                 <tr id="EnvironmentalTypeRow">
                                     <td class="left-column">
