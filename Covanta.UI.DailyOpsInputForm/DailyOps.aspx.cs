@@ -187,6 +187,13 @@ namespace Covanta.UI.DailyOpsInputForm
             EndOfShiftReportButton.Visible = EnvironmentalEvents.SelectedValue == "True";
         }
 
+        /* RITM1026096 C. Link 2023-11-08 Add button for conditional link to End of Shift Report if user selects Yes*/
+        protected void CemsEvents_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Make the button visible only if "Yes" is selected
+            EndOfShiftReportButton.Visible = CemsEvents.SelectedValue == "True";
+        }
+
 
         #endregion
 

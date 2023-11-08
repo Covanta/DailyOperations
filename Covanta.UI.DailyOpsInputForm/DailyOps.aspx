@@ -1509,17 +1509,14 @@
                                             TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="left-column">
-                                        <asp:Label ID="CemsEventsLabel" runat="server" EnableViewState="False">Were there any CEMS events?</asp:Label>
-                                    </td>
-                                    <td class="right-column">
-                                        <asp:RadioButtonList ID="CemsEvents" runat="server" CssClass="YesNoField" RepeatDirection="Horizontal">
-                                            <asp:ListItem onClick="showCemsExplanation()" Value="True">Yes</asp:ListItem>
-                                            <asp:ListItem onClick="showCemsExplanation()" Value="False">No</asp:ListItem>
-                                        </asp:RadioButtonList>
-                                    </td>
-                                </tr>
+                                <td class="right-column">
+                                    <asp:RadioButtonList ID="CemsEvents" runat="server" CssClass="YesNoField" RepeatDirection="Horizontal" AutoPostBack="True" OnSelectedIndexChanged="CemsEvents_SelectedIndexChanged">
+                                        <asp:ListItem Value="True">Yes</asp:ListItem>
+                                        <asp:ListItem Value="False">No</asp:ListItem>
+                                    </asp:RadioButtonList>
+                                    <asp:Button ID="EndOfShiftReportButton" runat="server" Text="End of Shift Report" OnClientClick="openEndOfShiftReport(); return false;" Visible="False" />
+                                </td>
+                                //RITM1026096 C. Link 2023-11-08 Add button for conditional link to End of Shift Report if user selects Yes                                
                                 <tr id="CemsTypeRow">
                                     <td class="left-column">
                                         <asp:Label ID="CemsEventTypeLabel" runat="server" EnableViewState="False">What type of CEMS event was it?</asp:Label>
