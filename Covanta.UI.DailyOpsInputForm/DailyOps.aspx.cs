@@ -269,14 +269,16 @@ namespace Covanta.UI.DailyOpsInputForm
                 PreShredInventoryRow.Visible = true;
                 PostShredInventoryRow.Visible = true;
                 PitInventoryRow.Visible = false;
-                if (data.FacilityID == "HONOL")
+                //Modified by C. Link 2023-11-08 Per incident raised by John Polidore
+                //INC1078504 - HONOL Should not be configured for MB.  Commenting code.
+                /*if (data.FacilityID == "HONOL")
                 {
                     MassBurnInventoryRow.Visible = true;
                 }
                 else
                 {
                     MassBurnInventoryRow.Visible = false;
-                }
+                }*/
             }
             else
             {
