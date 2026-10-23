@@ -24,7 +24,7 @@ namespace Covanta.UI.CeridianandActiveDirCompare
         #region constructors
 
         /// <summary>
-        /// Main constuctor of the class
+        /// Main constructor of the class
         /// </summary>
         public CeridianAndActiveDirDifferencesParser()
         {
@@ -168,7 +168,7 @@ namespace Covanta.UI.CeridianandActiveDirCompare
 
         private void writeADSyncPropossedSAMAcctNoConflictDataToCSV()
         {
-            //get data fromo database
+            //get data from database
             CeridianAndActiveDirDifferencesManager manager = new CeridianAndActiveDirDifferencesManager(_covStagingConnection);
             List<CeridianAndADSyncProposedSAMwithNoConflict> list = manager.GetCeridianAndADSyncProposedSAMwithNoConflictList();
            

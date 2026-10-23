@@ -14,7 +14,7 @@ namespace Covanta.BusinessLogic
     {
         #region constructors
         /// <summary>
-        /// Instanciates this class with connection string as parameter
+        /// Instantiates this class with connection string as parameter
         /// </summary>
         /// <param name="dbConnection">connection string</param>
         public C4RForecastRecommendationManager(string dbConnection)

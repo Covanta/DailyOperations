@@ -52,7 +52,7 @@ namespace Covanta.DataAccess
                 loadActiveDirectoryInfoList(dt, list);
             }
 
-            //set null reference to uneeded objects
+            //set null reference to unneeded objects
             dt = null;
 
             return list;            
@@ -88,7 +88,7 @@ namespace Covanta.DataAccess
                 loadEmployeeInfoList(dt, list);
             }
 
-            //set null reference to uneeded objects
+            //set null reference to unneeded objects
             dt = null;
 
             return list;
