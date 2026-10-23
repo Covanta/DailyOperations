@@ -10,7 +10,7 @@ using Covanta.Utilities.Helpers;
 namespace Covanta.DataAccess
 {
     /// <summary>
-    /// Provides a base class for the DAL classes.  These methonds provide a 
+    /// Provides a base class for the DAL classes.  These methods provide a 
     /// </summary>
     public class DALBase
     {
@@ -38,7 +38,7 @@ namespace Covanta.DataAccess
         #region protected methods
 
         /// <summary>
-        /// Call the Stored Proc Names in the input parameters and executes it.  Throws an exception if on is encountered.
+        /// Call the Stored Proc Names in the input parameters and executes it.  Throws an exception if one is encountered.
         /// This is for READ ONLY Stored Procs which return only 1 data table.      
         /// </summary>
         /// <param name="command">SQL command object</param>
@@ -162,7 +162,7 @@ namespace Covanta.DataAccess
         #region private methods
 
         /// <summary>
-        /// Populates a string with info from the SQLCommand.  This string can be used to inquire abount and error if one occurs.        
+        /// Populates a string with info from the SQLCommand.  This string can be used to inquire about an error if one occurs.        
         /// </summary>
         /// <param name="command">Command which is used to make the database call.</param>
         /// <returns>Returns a string containing info from the SQLCommand. </returns>
